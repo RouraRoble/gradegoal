@@ -1,0 +1,107 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { site } from '../site.config';
+import { withBase } from '../lib/url';
+import { breadcrumbLd } from '../lib/seo';
+import scales from '../data/scales.json';
+
+const title = `About ${site.name}`;
+const description = `How ${site.name} calculates grades and GPA: the exact formulas, where the grading-scale data comes from, and how to verify it.`;
+const lastUpdated = '2026-09-23';
+const scaleCount = (scales as unknown as { generic?: boolean }[]).length;
+const verifiedCount = (scales as unknown as { generic?: boolean }[]).filter((s) => !s.generic).length;
+---
+
+<Base title={title} description={description} jsonLd={breadcrumbLd([{ name: 'Home', url: '/' }, { name: 'About', url: '/about/' }])}>
+  <article class="container container--narrow section prose">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'About', url: '/about/' }]} />
+    <h1>{title}</h1>
+    <p class="muted small">Last updated: {lastUpdated}</p>
+    <p>
+      {site.name} is a set of four small calculators for students: a final grade calculator, a weighted grade book, a GPA calculator and a GPA planner. Every result is
+      computed in your browser from the numbers you type — nothing is uploaded, and there is no account.
+    </p>
+
+    <h2>Final grade formula</h2>
+    <p>
+      Your course grade is a weighted average of your current grade and the final: <code>grade = current × (1 − weight) + final × weight</code>, where{' '}
+      <code>weight</code> is the final's share of the course grade (30% = 0.30). Solving for the final score that hits your target gives:
+    </p>
+    <pre tabindex="0">final = (target − current × (1 − weight)) / weight</pre>
+    <p>
+      A result above 100% is flagged "not possible" (assuming no extra credit); a result at or below 0% is flagged "already secured." The three variants work the same
+      way with adjusted algebra:
+    </p>
+    <ul>
+      <li>
+        <strong>Final replaces lowest test</strong> — the final is added to your list of test scores as one more test, and the lowest of that combined list is dropped
+        before averaging. If the required final would itself be the lowest score, your grade is already decided and doesn't depend on the final.
+      </li>
+      <li>
+        <strong>Two-part final</strong> — the final's total weight is split across two components; if you already know part 1's score, the calculator solves only for
+        part 2.
+      </li>
+      <li>
+        <strong>Points-based</strong> — for courses graded on raw points rather than percentages: <code>needed points = target% × (points possible + final points) − points earned</code>.
+      </li>
+    </ul>
+
+    <h2>Weighted grade book</h2>
+    <p>
+      Each category's average is either points-weighted (<code>sum of points earned ÷ sum of points possible</code>) or an equal-weight average of each item's
+      percentage — your choice. Within a category, the lowest N scores are dropped (N = "drop lowest"), always keeping at least one graded item. Categories with
+      no graded items yet are excluded from the course grade and the remaining categories' weights are renormalised to sum to 100% — the same convention most
+      learning-management systems (Canvas, PowerSchool, etc.) use for an in-progress "current grade." "What-if" rows are excluded from the current grade but included
+      in the "with what-ifs" projection.
+    </p>
+
+    <h2>GPA formula</h2>
+    <p>
+      Semester GPA is quality points divided by credits: <code>Σ(grade points × credits) ÷ Σ(credits)</code>, counting only courses with both a graded, GPA-eligible
+      grade and non-zero credits. Cumulative GPA folds in a prior GPA and credit count:
+    </p>
+    <pre tabindex="0">cumulative = (priorGPA × priorCredits + thisSemester'sQualityPoints) / (priorCredits + thisSemester'sCredits)</pre>
+    <p>
+      When Honors/AP weighting is enabled on a scale that supports it, the configured bonus (for example +0.5 for Honors, +1.0 for AP/IB) is added to the grade point
+      before multiplying by credits — never to a failing grade.
+    </p>
+    <p>
+      See <a href={withBase('/how-to-calculate-gpa/')}>how to calculate GPA</a> for a fully worked example, or <a href={withBase('/weighted-vs-unweighted-gpa/')}>weighted
+      vs. unweighted GPA</a> for a side-by-side comparison.
+    </p>
+
+    <h2>GPA planner</h2>
+    <p>
+      The planner rearranges the cumulative-GPA formula to solve for the average you need: <code>requiredAverage = (target × (credits + newCredits) − GPA × credits) / newCredits</code>,
+      and for the credits needed at a given average: <code>credits = currentCredits × (target − GPA) / (average − target)</code> (undefined/negative when that average can
+      never reach the target).
+    </p>
+
+    <h2>Grading-scale data</h2>
+    <p>
+      GradeGoal ships {scaleCount} grading scales ({verifiedCount} tied to a specific, cited institution or national system; the rest are widely used generic
+      conventions such as the standard unweighted 4.0 scale). Every scale page states whether it's generic or sourced, links the official page it was verified
+      against, and shows the verification date. Grading policies change and vary by department — always check your own syllabus or registrar page for figures that
+      matter for your transcript. Scale data lives in <code>src/data/scales.json</code> in the site's source and is never fetched at runtime.
+    </p>
+
+    <h2>Rounding</h2>
+    <p>
+      Internal math uses full floating-point precision; only the final displayed number is rounded (to 1–3 decimal places depending on the field), using
+      round-half-away-from-zero to avoid the classic <code>1.005 → 1.00</code> floating-point artefact.
+    </p>
+
+    <h2>Privacy by design</h2>
+    <p>
+      {site.name} runs entirely in your browser. Inputs are not uploaded, no account is needed, and there are no tracking cookies. Saved courses and semesters use
+      your browser's local storage only — see the <a href={withBase('/privacy/')}>privacy policy</a>.
+    </p>
+
+    <h2>Who maintains it</h2>
+    <p>
+      Built and maintained by <a href={site.author.url} rel="noopener">{site.author.name}</a>. Launched {site.launched}. Found an error in a grading scale, a bug, or
+      have a suggestion? <a href={withBase('/contact/')}>Get in touch</a> — data corrections are especially welcome, with a source we can verify.
+    </p>
+  </article>
+</Base>

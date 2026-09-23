@@ -1,0 +1,87 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Faq from '../../components/Faq.astro';
+import Share from '../../components/Share.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import MoreTools from '../../components/MoreTools.astro';
+import Planner from '../../components/islands/Planner';
+import { webAppLd, breadcrumbLd, howToLd, BUILD_DATE_ISO } from '../../lib/seo';
+import { absoluteUrl, withBase } from '../../lib/url';
+
+const title = 'GPA Planner — How Many Credits to Raise Your GPA';
+const description =
+  'Free GPA planner: find the average you need over your next credits to hit a target GPA, or see the highest GPA you could reach — with a full credits-needed table.';
+const faqs = [
+  {
+    q: 'How is the required average calculated?',
+    a: 'requiredAverage = (target × (current credits + new credits) − currentGPA × current credits) / new credits. For example: 3.1 GPA over 45 credits, aiming for 3.5 in 30 more credits, needs a 4.1 average — above the scale maximum, so it isn\'t reachable in exactly 30 credits.',
+  },
+  {
+    q: 'What if the required average is above my scale\'s maximum?',
+    a: 'That target isn\'t reachable in that many credits — the "Credits needed" table below shows how many credits it would actually take at a realistic average.',
+  },
+  {
+    q: 'Does this account for Honors/AP weighting?',
+    a: 'The planner works in whatever GPA scale you\'re already using (enter your current weighted or unweighted GPA) — pick the matching scale maximum from the dropdown.',
+  },
+];
+---
+
+<Base
+  title={title}
+  description={description}
+  jsonLd={[
+    webAppLd({ name: 'GPA Planner', url: '/gpa-planner/', description, features: ['Required average calculator', 'Credits-needed table', 'Best-possible GPA table'] }),
+    breadcrumbLd([{ name: 'Home', url: '/' }, { name: 'GPA Planner', url: '/gpa-planner/' }]),
+    howToLd({
+      name: 'How to plan the average you need to raise your GPA',
+      description: 'Find the average required over your next credits to reach a target cumulative GPA.',
+      steps: [
+        { name: 'Enter your current GPA and credits', text: 'Your GPA and total credits earned so far.' },
+        { name: 'Enter your target GPA', text: 'The cumulative GPA you want to reach.' },
+        { name: 'Enter the credits you have left', text: 'How many more credits you plan to earn it over.' },
+        { name: 'Read the required average', text: 'GradeGoal solves for the average you need — or, if it is above the scale maximum, how many credits it would actually take.' },
+      ],
+    }),
+  ]}
+>
+  <article class="container container--narrow section">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'GPA Planner', url: '/gpa-planner/' }]} />
+    <h1>GPA Planner</h1>
+    <p class="lead">"I'm at 3.1, I need 3.5 — how many credits, at what average?" Enter your numbers and get the exact answer, plus tables for other scenarios.</p>
+    <p class="muted small">Last updated {BUILD_DATE_ISO}</p>
+  </article>
+
+  <section class="container" aria-label="GPA planner">
+    <Planner client:load />
+  </section>
+
+  <AdSlot slot="gpa-planner-below-tool" minHeight={90} />
+
+  <article class="container container--narrow section prose">
+    <h2>The math behind it</h2>
+    <p>
+      Your cumulative GPA is a credit-weighted average: <code>(GPA × credits + newAverage × newCredits) / (credits + newCredits)</code>. The planner solves that equation
+      for the average you need, and for the credits it would take at a given average.
+    </p>
+    <p>
+      Need your current GPA first? Use the <a href={withBase('/gpa-calculator/')}>GPA calculator</a>. Working out a single term instead?
+      <a href={withBase('/grade-calculator/')}>Weighted grade calculator</a>.
+    </p>
+    <Share url={absoluteUrl('/gpa-planner/')} text="GPA Planner — how many credits to raise your GPA" />
+  </article>
+
+  <section class="container container--narrow">
+    <Faq items={faqs} />
+  </section>
+
+  <MoreTools />
+</Base>
+
+<style>
+  .lead {
+    font-size: var(--text-lg);
+    color: var(--fg-muted);
+  }
+</style>

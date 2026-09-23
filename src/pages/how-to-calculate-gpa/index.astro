@@ -1,0 +1,162 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Faq from '../../components/Faq.astro';
+import Share from '../../components/Share.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import MoreTools from '../../components/MoreTools.astro';
+import { articleLd, breadcrumbLd, howToLd, BUILD_DATE_ISO } from '../../lib/seo';
+import { absoluteUrl, withBase } from '../../lib/url';
+import { site } from '../../site.config';
+
+const title = 'How to Calculate Your GPA (With an Example)';
+const description =
+  'How GPA is calculated: convert each grade to points, multiply by credits, then divide by total credits — with a full worked example table.';
+const path = '/how-to-calculate-gpa/';
+
+// Worked example, hand-verified against src/lib/grades.ts's semesterGpa() on the us-4-0 scale:
+// (4×4 + 3.3×3 + 3.7×3 + 3×2) / (4+3+3+2) = 43 / 12 = 3.583.
+const courses = [
+  { name: 'Biology', grade: 'A', points: 4, credits: 4 },
+  { name: 'Algebra II', grade: 'B+', points: 3.3, credits: 3 },
+  { name: 'World History', grade: 'A-', points: 3.7, credits: 3 },
+  { name: 'Spanish II', grade: 'B', points: 3, credits: 2 },
+];
+const totalCredits = courses.reduce((a, c) => a + c.credits, 0);
+const totalQualityPoints = courses.reduce((a, c) => a + c.points * c.credits, 0);
+const gpa = totalQualityPoints / totalCredits;
+
+const steps = [
+  { name: 'List every course, its grade and its credit hours', text: 'Write down each course you took, the letter grade you earned, and how many credit hours it was worth.' },
+  { name: "Convert each grade to grade points", text: "Look up each letter grade's point value on your school's scale (A = 4.0, B+ = 3.3, and so on for the standard unweighted 4.0 scale)." },
+  { name: 'Multiply points by credits for each course', text: "Multiply each course's grade points by its credit hours to get that course's quality points." },
+  { name: 'Add up quality points and credits separately', text: 'Sum all the quality points, and separately sum all the credit hours.' },
+  { name: 'Divide total quality points by total credits', text: 'GPA = total quality points ÷ total credits. That single number is your GPA.' },
+];
+
+const faqs = [
+  {
+    q: 'What is the GPA formula?',
+    a: 'GPA = (sum of each course\'s grade points × its credits) ÷ (sum of all credits). Grade points come from your school\'s scale — see the <a href="' +
+      withBase('/gpa-scale/us-4-0/') +
+      '">standard 4.0 scale</a> for the most common one.',
+  },
+  {
+    q: 'Do Pass/Fail or Incomplete grades count toward GPA?',
+    a: 'No — a grade with no point value on your scale (like P for Pass) is excluded from both the total quality points and the total credits, the same way it\'s excluded on most transcripts.',
+  },
+  {
+    q: 'How is cumulative GPA different from semester GPA?',
+    a: 'Semester GPA only uses that term\'s courses. Cumulative GPA folds in every prior term: cumulative = (prior GPA × prior credits + this semester\'s quality points) ÷ (prior credits + this semester\'s credits). The <a href="' +
+      withBase('/gpa-calculator/') +
+      '">GPA calculator</a> computes both at once.',
+  },
+  {
+    q: 'What if my school weights Honors or AP classes?',
+    a: 'A weighted scale adds a bonus (commonly +0.5 for Honors, +1.0 for AP/IB) to a course\'s grade points before averaging. See <a href="' +
+      withBase('/weighted-vs-unweighted-gpa/') +
+      '">weighted vs. unweighted GPA</a> for a worked comparison.',
+  },
+];
+---
+
+<Base
+  title={title}
+  description={description}
+  jsonLd={[
+    articleLd({ headline: title, description, url: path, datePublished: site.launched }),
+    breadcrumbLd([{ name: 'Home', url: '/' }, { name: 'GPA Calculator', url: '/gpa-calculator/' }, { name: 'How to Calculate GPA', url: path }]),
+    howToLd({
+      name: 'How to calculate your GPA',
+      description: 'Convert grades to points, weight by credits, and average to get a GPA.',
+      steps,
+    }),
+  ]}
+>
+  <article class="container container--narrow section prose">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'GPA Calculator', url: '/gpa-calculator/' }, { name: 'How to Calculate GPA', url: path }]} />
+    <h1>How to Calculate Your GPA</h1>
+    <p class="lead">
+      Your GPA is a credit-weighted average of your grade points: convert each grade to points on your school's scale, multiply by that course's credit hours, add
+      everything up, then divide by total credits.
+    </p>
+    <p class="muted small">Last updated {BUILD_DATE_ISO}</p>
+
+    <h2>The five steps</h2>
+    <ol>
+      {steps.map((s) => (
+        <li>
+          <strong>{s.name}.</strong> {s.text}
+        </li>
+      ))}
+    </ol>
+
+    <h2>Worked example</h2>
+    <p>
+      A student takes four courses in one semester, graded on the <a href={withBase('/gpa-scale/us-4-0/')}>standard unweighted 4.0 scale</a>:
+    </p>
+  </article>
+
+  <section class="container section" aria-label="Worked GPA example table">
+    <div class="table-wrap container--narrow">
+      <table class="matrix">
+        <caption class="visually-hidden">Worked GPA example: course, grade, points, credits and quality points</caption>
+        <thead>
+          <tr>
+            <th scope="col">Course</th>
+            <th scope="col">Grade</th>
+            <th scope="col">Points</th>
+            <th scope="col">Credits</th>
+            <th scope="col">Quality points (points × credits)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {courses.map((c) => (
+            <tr>
+              <th scope="row">{c.name}</th>
+              <td>{c.grade}</td>
+              <td>{c.points}</td>
+              <td>{c.credits}</td>
+              <td>{(c.points * c.credits).toFixed(1)}</td>
+            </tr>
+          ))}
+          <tr>
+            <th scope="row">Total</th>
+            <td>—</td>
+            <td>—</td>
+            <td>{totalCredits}</td>
+            <td>{totalQualityPoints.toFixed(1)}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="container container--narrow field__hint">
+      GPA = {totalQualityPoints.toFixed(1)} quality points ÷ {totalCredits} credits = <strong>{gpa.toFixed(3)}</strong>.
+    </p>
+  </section>
+
+  <AdSlot slot="how-to-calculate-gpa-below-table" minHeight={90} />
+
+  <article class="container container--narrow section prose">
+    <h2>Try it with your own courses</h2>
+    <p>
+      Enter your own courses, grades and credits in the <a href={withBase('/gpa-calculator/')}>GPA calculator</a> to get semester and cumulative GPA instantly, with your
+      school's scale and optional Honors/AP weighting. Planning ahead instead? Use the <a href={withBase('/gpa-planner/')}>GPA planner</a> to see what average you need
+      over your next credits.
+    </p>
+    <Share url={absoluteUrl(path)} text="How to calculate your GPA, step by step" />
+  </article>
+
+  <section class="container container--narrow">
+    <Faq items={faqs} />
+  </section>
+
+  <MoreTools />
+</Base>
+
+<style>
+  .lead {
+    font-size: var(--text-lg);
+    color: var(--fg-muted);
+  }
+</style>

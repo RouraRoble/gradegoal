@@ -1,0 +1,195 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Faq from '../../components/Faq.astro';
+import Share from '../../components/Share.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import MoreTools from '../../components/MoreTools.astro';
+import Gpa from '../../components/islands/Gpa';
+import { CgpaConverter } from '../../components/islands/Converters';
+import scales from '../../data/scales.json';
+import { isAverageable, type Scale } from '../../lib/grades';
+import { articleLd, breadcrumbLd, clampDescription, datasetLd, BUILD_DATE_ISO } from '../../lib/seo';
+import { absoluteUrl, withBase } from '../../lib/url';
+import { site } from '../../site.config';
+
+export function getStaticPaths() {
+  const data = scales as unknown as Scale[];
+  return data.map((scale) => ({ params: { slug: scale.slug }, props: { scale } }));
+}
+
+const data = scales as unknown as Scale[];
+
+const { scale } = Astro.props as { scale: Scale };
+const path = `/gpa-scale/${scale.slug}/`;
+const title = `${scale.short ?? scale.name} Scale & GPA Converter`;
+const hasBands = scale.rows.some((r) => r.min != null && r.max != null);
+const description = clampDescription(
+  `${scale.name} grade table with points${hasBands ? ' and percentage bands' : ''}. ${scale.generic ? 'A common convention — check your own syllabus for exact figures.' : `Sourced from ${scale.source.title}, verified ${scale.source.verified}.`}`,
+  158,
+);
+const usable = isAverageable(scale);
+const topRow = scale.rows[0];
+const pointsWord = (n: number) => (Math.abs(n) === 1 ? 'point' : 'points');
+
+const faqs = [
+  {
+    q: `What is the highest grade on the ${scale.name}?`,
+    a: `${topRow ? `${topRow.grade}${topRow.points != null ? ` is worth ${topRow.points} ${pointsWord(topRow.points)}` : ''}${topRow.min != null ? ` (${topRow.min}–${topRow.max}${scale.bandKind === 'score' ? '' : '%'})` : ''}.` : 'See the table above.'} ${scale.generic ? 'This is a widely used convention — always check your own institution\'s published scale for the figures that count toward your transcript.' : `Source: ${scale.source.title}, verified ${scale.source.verified}.`}`,
+  },
+  {
+    q: 'Where does this data come from?',
+    a: scale.generic
+      ? 'This is a common, widely documented convention rather than one institution\'s exact published scale — see the About page for methodology.'
+      : `From the official source linked above (${scale.source.title}), last verified ${scale.source.verified}. If your transcript shows different numbers, use your institution's figures — grading policies can change.`,
+  },
+  {
+    q: 'Can I use this scale in the GPA calculator?',
+    a: usable
+      ? 'Yes — select it from the scale dropdown in the calculator above (or on the main GPA calculator page) and enter your courses and credits.'
+      : scale.inverted
+        ? 'This scale runs the opposite way (lower numbers are better), so it can\'t be averaged like an ascending GPA scale — it isn\'t in the interactive averager, but the table above has everything you need to convert by hand.'
+        : 'This scale is shown for reference (it doesn\'t map cleanly onto a single ascending grade-point column), so it isn\'t in the interactive averager — but the table above has everything you need to convert by hand.',
+  },
+];
+---
+
+<Base
+  title={title}
+  description={description}
+  jsonLd={[
+    articleLd({ headline: title, description, url: path, datePublished: scale.source.verified }),
+    breadcrumbLd([{ name: 'Home', url: '/' }, { name: 'GPA Calculator', url: '/gpa-calculator/' }, { name: scale.name, url: path }]),
+    datasetLd({
+      name: `${scale.name} grade-point table`,
+      description,
+      url: path,
+      license: scale.generic
+        ? 'Widely used generic convention (not tied to one institution); compiled by GradeGoal for reference.'
+        : `Public grading-scale information published by ${scale.source.title}; compiled here for reference.`,
+      sourceUrl: scale.generic ? undefined : scale.source.url ?? undefined,
+      datePublished: scale.source.verified,
+      keywords: [scale.name, `${scale.short ?? scale.name} gpa scale`],
+    }),
+  ]}
+>
+  <article class="container container--narrow section">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'GPA Calculator', url: '/gpa-calculator/' }, { name: scale.name, url: path }]} />
+    <h1>{scale.name}</h1>
+    <p class="lead">
+      {scale.region}
+      {scale.inverted
+        ? ` · runs ${scale.max} (best) to ${scale.rows[scale.rows.length - 1]?.points} (fail)${scale.passing != null ? `; ${scale.passing} is the lowest pass` : ''} — lower is better`
+        : ` · scale up to ${scale.max}`}
+      {scale.generic ? ' · common convention' : ' · verified institution scale'}
+    </p>
+    <p class="muted small">Data updated {BUILD_DATE_ISO} · source last verified {scale.source.verified}</p>
+    <p>
+      {topRow && (
+        <>
+          The top grade, <strong>{topRow.grade}</strong>
+          {topRow.points != null ? <> , is worth <strong>{topRow.points}</strong> {pointsWord(topRow.points)}</> : null}
+          {topRow.min != null ? <> ({topRow.min}–{topRow.max}{scale.bandKind === 'score' ? '' : '%'})</> : null}. See the full table below for every grade on this scale.
+        </>
+      )}
+    </p>
+  </article>
+
+  <section class="container section" aria-label={`${scale.name} grade table`}>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Grade</th>
+            {hasBands && <th scope="col">{scale.bandKind === 'score' ? `Score (out of ${scale.max})` : 'Percentage'}</th>}
+            <th scope="col">Points</th>
+            <th scope="col">Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {scale.rows.map((row) => (
+            <tr>
+              <th scope="row">{row.grade}</th>
+              {hasBands && <td>{row.min != null ? `${row.min}–${row.max}${scale.bandKind === 'score' ? '' : '%'}` : '—'}</td>}
+              <td>{row.points != null ? row.points : '—'}</td>
+              <td>{row.label ?? ''}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card source-card">
+      <p>
+        <strong>Source:</strong>{' '}
+        {scale.generic || !scale.source.url ? (
+          <>Common convention — see the <a href={withBase('/about/')}>methodology</a> page.</>
+        ) : (
+          <a href={scale.source.url} rel="noopener nofollow">{scale.source.title}</a>
+        )}
+        <span class="muted"> · verified {scale.source.verified}</span>
+      </p>
+      {scale.notes.length > 0 && (
+        <ul>
+          {scale.notes.map((n) => <li>{n}</li>)}
+        </ul>
+      )}
+      {scale.weighted && <p class="muted">Honors bonus: +{scale.weighted.honors} · AP/IB bonus: +{scale.weighted.ap}</p>}
+    </div>
+  </section>
+
+  <AdSlot slot="gpa-scale-below-table" minHeight={90} />
+
+  {usable && (
+    <section class="container" aria-label={`GPA converter preset to ${scale.name}`}>
+      <h2 class="container container--narrow" style="margin-top:0">Try it: calculate a GPA on this scale</h2>
+      <Gpa client:visible presetScale={scale.slug} />
+    </section>
+  )}
+  {scale.slug === 'india-cgpa' && (
+    <section class="container" aria-label="CGPA to percentage converter">
+      <h2 class="container container--narrow" style="margin-top:0">CGPA ↔ percentage converter</h2>
+      <CgpaConverter client:visible />
+    </section>
+  )}
+
+  <article class="container container--narrow section prose">
+    <h2>Other grading scales</h2>
+    <ul>
+      {data
+        .filter((s) => s.slug !== scale.slug)
+        .slice(0, 12)
+        .map((s) => (
+          <li>
+            <a href={withBase(`/gpa-scale/${s.slug}/`)}>{s.name}</a>
+          </li>
+        ))}
+    </ul>
+    <p>
+      Converting a single number? Try <a href={withBase('/gpa-to-percentage/')}>GPA to percentage</a>, <a href={withBase('/percentage-to-gpa/')}>percentage to GPA</a> or
+      <a href={withBase('/letter-grade-to-gpa/')}>letter grade to GPA</a>.
+    </p>
+    <Share url={absoluteUrl(path)} text={`${scale.name} — grade table and converter`} />
+  </article>
+
+  <section class="container container--narrow">
+    <Faq items={faqs} />
+  </section>
+
+  <MoreTools />
+</Base>
+
+<style>
+  .lead {
+    color: var(--fg-muted);
+  }
+  .source-card {
+    margin-top: var(--space-5);
+    max-width: var(--container-narrow);
+  }
+  .source-card ul {
+    margin-bottom: 0;
+    font-size: var(--text-sm);
+    color: var(--fg-muted);
+  }
+</style>

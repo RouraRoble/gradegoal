@@ -1,0 +1,64 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Faq from '../../components/Faq.astro';
+import Share from '../../components/Share.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import MoreTools from '../../components/MoreTools.astro';
+import { LetterToGpa } from '../../components/islands/Converters';
+import { webAppLd, breadcrumbLd, BUILD_DATE_ISO } from '../../lib/seo';
+import { absoluteUrl, withBase } from '../../lib/url';
+
+const title = 'Letter Grade to GPA Converter';
+const description = 'Convert any letter grade (A+ through F) to its GPA points on the standard 4.0 scale, with the typical percentage range.';
+const faqs = [
+  {
+    q: 'How many points is a B+?',
+    a: 'On the standard 4.0 scale, a B+ is worth 3.3 grade points (some schools use 3.33), typically 87–89%.',
+  },
+  {
+    q: 'Does every school use the same points for each letter?',
+    a: 'No — most are close to this table, but some cap A- lower, don\'t award A+, or use a 4.3/5.0 maximum. See <a href="' + withBase('/gpa-scale/us-4-0/') + '">the 4.0 scale</a> and <a href="' + withBase('/gpa-scale/us-4-3/') + '">the 4.3 scale</a> for the two most common conventions, or your school\'s own page under GPA scales.',
+  },
+];
+---
+
+<Base
+  title={title}
+  description={description}
+  jsonLd={[webAppLd({ name: 'Letter Grade to GPA Converter', url: '/letter-grade-to-gpa/', description }), breadcrumbLd([{ name: 'Home', url: '/' }, { name: 'Letter Grade to GPA', url: '/letter-grade-to-gpa/' }])]}
+>
+  <article class="container container--narrow section">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Letter Grade to GPA', url: '/letter-grade-to-gpa/' }]} />
+    <h1>Letter Grade to GPA Converter</h1>
+    <p class="lead">Pick a letter grade to see its GPA points and typical percentage range on the standard 4.0 scale.</p>
+    <p class="muted small">Last updated {BUILD_DATE_ISO}</p>
+  </article>
+
+  <section class="container" aria-label="Letter grade to GPA converter">
+    <LetterToGpa client:load />
+  </section>
+
+  <AdSlot slot="letter-to-gpa-below-tool" minHeight={90} />
+
+  <article class="container container--narrow section prose">
+    <p>
+      Need the reverse? Try <a href={withBase('/gpa-to-percentage/')}>GPA to percentage</a> or <a href={withBase('/percentage-to-gpa/')}>percentage to GPA</a>. For a full
+      course or semester, use the <a href={withBase('/gpa-calculator/')}>GPA calculator</a>.
+    </p>
+    <Share url={absoluteUrl('/letter-grade-to-gpa/')} text="Letter Grade to GPA Converter" />
+  </article>
+
+  <section class="container container--narrow">
+    <Faq items={faqs} />
+  </section>
+
+  <MoreTools />
+</Base>
+
+<style>
+  .lead {
+    font-size: var(--text-lg);
+    color: var(--fg-muted);
+  }
+</style>

@@ -1,0 +1,1302 @@
+[
+  {
+    "slug": "us-4-0",
+    "name": "US Unweighted 4.0 Scale",
+    "short": "4.0 scale",
+    "kind": "letter",
+    "region": "United States",
+    "max": 4,
+    "passing": 1,
+    "generic": true,
+    "rows": [
+      {
+        "grade": "A",
+        "points": 4
+      },
+      {
+        "grade": "A-",
+        "points": 3.7
+      },
+      {
+        "grade": "B+",
+        "points": 3.3
+      },
+      {
+        "grade": "B",
+        "points": 3
+      },
+      {
+        "grade": "B-",
+        "points": 2.7
+      },
+      {
+        "grade": "C+",
+        "points": 2.3
+      },
+      {
+        "grade": "C",
+        "points": 2
+      },
+      {
+        "grade": "C-",
+        "points": 1.7
+      },
+      {
+        "grade": "D+",
+        "points": 1.3
+      },
+      {
+        "grade": "D",
+        "points": 1
+      },
+      {
+        "grade": "D-",
+        "points": 0.7
+      },
+      {
+        "grade": "F",
+        "points": 0
+      }
+    ],
+    "source": {
+      "url": null,
+      "title": "Common convention — not tied to a single official source",
+      "verified": "2026-09-23"
+    },
+    "notes": [
+      "The most common US unweighted college scale: A is capped at 4.0 (no bonus for A+).",
+      "Individual schools vary — some cap A- at 3.67 instead of 3.7. Check your syllabus or registrar for the exact figures used to compute your official transcript GPA."
+    ]
+  },
+  {
+    "slug": "us-4-3",
+    "name": "US Plus Scale (A+ = 4.3)",
+    "short": "4.3 scale",
+    "kind": "letter",
+    "region": "United States",
+    "max": 4.3,
+    "passing": 1,
+    "generic": true,
+    "rows": [
+      {
+        "grade": "A+",
+        "points": 4.3
+      },
+      {
+        "grade": "A",
+        "points": 4
+      },
+      {
+        "grade": "A-",
+        "points": 3.7
+      },
+      {
+        "grade": "B+",
+        "points": 3.3
+      },
+      {
+        "grade": "B",
+        "points": 3
+      },
+      {
+        "grade": "B-",
+        "points": 2.7
+      },
+      {
+        "grade": "C+",
+        "points": 2.3
+      },
+      {
+        "grade": "C",
+        "points": 2
+      },
+      {
+        "grade": "C-",
+        "points": 1.7
+      },
+      {
+        "grade": "D+",
+        "points": 1.3
+      },
+      {
+        "grade": "D",
+        "points": 1
+      },
+      {
+        "grade": "D-",
+        "points": 0.7
+      },
+      {
+        "grade": "F",
+        "points": 0
+      }
+    ],
+    "source": {
+      "url": null,
+      "title": "Common convention — not tied to a single official source",
+      "verified": "2026-09-23"
+    },
+    "notes": [
+      "Some US high schools and colleges award 0.3 extra grade points for an A+ instead of capping it at 4.0.",
+      "This pushes the scale maximum to 4.3. Not universal — many schools (Purdue, Penn State, UT Austin among them) cap A+/A at 4.0. Check your institution's page under GPA Scales."
+    ]
+  },
+  {
+    "slug": "us-5-0-weighted",
+    "name": "US Weighted 5.0 Scale (Honors/AP)",
+    "short": "Weighted 5.0",
+    "kind": "letter",
+    "region": "United States",
+    "max": 5,
+    "passing": 1,
+    "weighted": {
+      "honors": 0.5,
+      "ap": 1
+    },
+    "generic": true,
+    "rows": [
+      {
+        "grade": "A",
+        "points": 4
+      },
+      {
+        "grade": "A-",
+        "points": 3.7
+      },
+      {
+        "grade": "B+",
+        "points": 3.3
+      },
+      {
+        "grade": "B",
+        "points": 3
+      },
+      {
+        "grade": "B-",
+        "points": 2.7
+      },
+      {
+        "grade": "C+",
+        "points": 2.3
+      },
+      {
+        "grade": "C",
+        "points": 2
+      },
+      {
+        "grade": "C-",
+        "points": 1.7
+      },
+      {
+        "grade": "D+",
+        "points": 1.3
+      },
+      {
+        "grade": "D",
+        "points": 1
+      },
+      {
+        "grade": "D-",
+        "points": 0.7
+      },
+      {
+        "grade": "F",
+        "points": 0
+      }
+    ],
+    "source": {
+      "url": null,
+      "title": "Common convention — not tied to a single official source",
+      "verified": "2026-09-23"
+    },
+    "notes": [
+      "The most common US high-school weighting: Honors courses add 0.5 to the grade point, AP/IB/Dual-Enrollment courses add 1.0, pushing the maximum to 5.0.",
+      "There is no national standard — some districts use +0.5/+0.5 (max 4.5) or +1.0/+1.0 for both. Always confirm your school's exact policy before relying on the number for transcripts."
+    ]
+  },
+  {
+    "slug": "us-6-0-weighted",
+    "name": "US Weighted 6.0 Scale (Honors/AP)",
+    "short": "Weighted 6.0",
+    "kind": "letter",
+    "region": "United States",
+    "max": 6,
+    "passing": 1,
+    "weighted": {
+      "honors": 1,
+      "ap": 2
+    },
+    "generic": true,
+    "rows": [
+      {
+        "grade": "A",
+        "points": 4
+      },
+      {
+        "grade": "A-",
+        "points": 3.7
+      },
+      {
+        "grade": "B+",
+        "points": 3.3
+      },
+      {
+        "grade": "B",
+        "points": 3
+      },
+      {
+        "grade": "B-",
+        "points": 2.7
+      },
+      {
+        "grade": "C+",
+        "points": 2.3
+      },
+      {
+        "grade": "C",
+        "points": 2
+      },
+      {
+        "grade": "C-",
+        "points": 1.7
+      },
+      {
+        "grade": "D+",
+        "points": 1.3
+      },
+      {
+        "grade": "D",
+        "points": 1
+      },
+      {
+        "grade": "D-",
+        "points": 0.7
+      },
+      {
+        "grade": "F",
+        "points": 0
+      }
+    ],
+    "source": {
+      "url": null,
+      "title": "Common convention — not tied to a single official source",
+      "verified": "2026-09-23"
+    },
+    "notes": [
+      "A less common but real high-school convention: Honors adds 1.0, AP/IB adds 2.0, pushing the maximum to 6.0.",
+      "Used by a minority of districts to spread out rigor further. Confirm with your school before using it for an official record."
+    ]
+  },
+  {
+    "slug": "percentage-4-0",
+    "name": "Percentage to 4.0 GPA Conversion",
+    "short": "% → 4.0",
+    "kind": "percent",
+    "region": "United States",
+    "max": 4,
+    "passing": 1,
+    "generic": true,
+    "rows": [
+      {
+        "grade": "A+",
+        "points": 4,
+        "min": 97,
+        "max": 100
+      },
+      {
+        "grade": "A",
+        "points": 4,
+        "min": 93,
+        "max": 96.99
+      },
+      {
+        "grade": "A-",
+        "points": 3.7,
+        "min": 90,
+        "max": 92.99
+      },
+      {
+        "grade": "B+",
+        "points": 3.3,
+        "min": 87,
+        "max": 89.99
+      },
+      {
+        "grade": "B",
+        "points": 3,
+        "min": 83,
+        "max": 86.99
+      },
+      {
+        "grade": "B-",
+        "points": 2.7,
+        "min": 80,
+        "max": 82.99
+      },
+      {
+        "grade": "C+",
+        "points": 2.3,
+        "min": 77,
+        "max": 79.99
+      },
+      {
+        "grade": "C",
+        "points": 2,
+        "min": 73,
+        "max": 76.99
+      },
+      {
+        "grade": "C-",
+        "points": 1.7,
+        "min": 70,
+        "max": 72.99
+      },
+      {
+        "grade": "D+",
+        "points": 1.3,
+        "min": 67,
+        "max": 69.99
+      },
+      {
+        "grade": "D",
+        "points": 1,
+        "min": 63,
+        "max": 66.99
+      },
+      {
+        "grade": "D-",
+        "points": 0.7,
+        "min": 60,
+        "max": 62.99
+      },
+      {
+        "grade": "F",
+        "points": 0,
+        "min": 0,
+        "max": 59.99
+      }
+    ],
+    "source": {
+      "url": null,
+      "title": "Common convention — not tied to a single official source",
+      "verified": "2026-09-23"
+    },
+    "notes": [
+      "A widely used common convention for percentage bands (97+ = A+, 93–96 = A, …) paired with the standard 4.0 letter scale — not any single official published standard.",
+      "Percentage cutoffs for each letter grade vary by school — some start A at 90%, others at 93% or 94%. Always check your syllabus for the exact bands your instructor uses."
+    ]
+  },
+  {
+    "slug": "letter-only-4-0",
+    "name": "Letter-Only 4.0 Scale (No Plus/Minus)",
+    "short": "Plain 4.0",
+    "kind": "letter",
+    "region": "United States",
+    "max": 4,
+    "passing": 1,
+    "generic": true,
+    "rows": [
+      {
+        "grade": "A",
+        "points": 4
+      },
+      {
+        "grade": "B",
+        "points": 3
+      },
+      {
+        "grade": "C",
+        "points": 2
+      },
+      {
+        "grade": "D",
+        "points": 1
+      },
+      {
+        "grade": "F",
+        "points": 0
+      }
+    ],
+    "source": {
+      "url": null,
+      "title": "Common convention — not tied to a single official source",
+      "verified": "2026-09-23"
+    },
+    "notes": [
+      "Some schools (and MIT, converted to a 4.0 basis) report only whole letters with no plus/minus distinction: A=4, B=3, C=2, D=1, F=0."
+    ]
+  },
+  {
+    "slug": "au-7-point",
+    "name": "Australian 7-Point GPA Scale",
+    "short": "7-point (AU)",
+    "kind": "numeric",
+    "region": "Australia",
+    "max": 7,
+    "passing": 4,
+    "generic": true,
+    "rows": [
+      {
+        "grade": "HD",
+        "points": 7,
+        "min": 85,
+        "max": 100,
+        "label": "High Distinction"
+      },
+      {
+        "grade": "D",
+        "points": 6,
+        "min": 75,
+        "max": 84.99,
+        "label": "Distinction"
+      },
+      {
+        "grade": "CR",
+        "points": 5,
+        "min": 65,
+        "max": 74.99,
+        "label": "Credit"
+      },
+      {
+        "grade": "P",
+        "points": 4,
+        "min": 50,
+        "max": 64.99,
+        "label": "Pass"
+      },
+      {
+        "grade": "F",
+        "points": 0,
+        "min": 0,
+        "max": 49.99,
+        "label": "Fail"
+      }
+    ],
+    "source": {
+      "url": null,
+      "title": "Common convention — not tied to a single official source",
+      "verified": "2026-09-23"
+    },
+    "notes": [
+      "Many Australian universities report both a percentage-based Weighted Average Mark (WAM) and this 7-point GPA (HD=7 … F=0) for overseas applications.",
+      "The percentage bands for HD/D/Cr/P vary by university — some set HD at 80%. Check your own institution's grading policy; this is the most common convention."
+    ]
+  },
+  {
+    "slug": "spain-10",
+    "name": "Spain 0–10 Scale",
+    "short": "0–10 (ES)",
+    "kind": "numeric",
+    "region": "Spain",
+    "max": 10,
+    "passing": 5,
+    "generic": true,
+    "rows": [
+      {
+        "grade": "SB",
+        "points": 9.5,
+        "min": 9,
+        "max": 10,
+        "label": "Sobresaliente (Outstanding); Matrícula de Honor (Honors) may be awarded within this band to the top ~5%"
+      },
+      {
+        "grade": "NT",
+        "points": 7.5,
+        "min": 7,
+        "max": 8.99,
+        "label": "Notable (Very good)"
+      },
+      {
+        "grade": "AP",
+        "points": 5.5,
+        "min": 5,
+        "max": 6.99,
+        "label": "Aprobado (Pass) — secondary schools may further split this into Bien (6–6.99) and Aprobado (5–5.99); universities (RD 1125/2003) use a single Aprobado band"
+      },
+      {
+        "grade": "SU",
+        "points": 2.5,
+        "min": 0,
+        "max": 4.99,
+        "label": "Suspenso (Fail)"
+      }
+    ],
+    "source": {
+      "url": null,
+      "title": "Common convention — not tied to a single official source",
+      "verified": "2026-09-23"
+    },
+    "notes": [
+      "Spanish secondary and university grades are a 0–10 numeric score; 5.0 is the minimum pass. The bands above group that score into the standard qualitative labels.",
+      "The \"Points\" column is a representative mid-band value GradeGoal assigns so this scale can be entered in the GPA averager — Spain itself does not publish a separate points column, only the 0–10 score.",
+      "\"Matrícula de Honor\" (Honors) is limited to top performers scoring 9.0+, capped at roughly 5% of enrolled students per subject (Royal Decree 1125/2003).",
+      "This is a national convention — not every institution publishes an official English source; verify with your own transcript."
+    ],
+    "bandKind": "score"
+  },
+  {
+    "slug": "mit-5-0",
+    "name": "MIT Grading Scale",
+    "short": "MIT (5.0)",
+    "kind": "letter",
+    "region": "United States — MIT",
+    "max": 5,
+    "passing": 2,
+    "rows": [
+      {
+        "grade": "A",
+        "points": 5
+      },
+      {
+        "grade": "B",
+        "points": 4
+      },
+      {
+        "grade": "C",
+        "points": 3
+      },
+      {
+        "grade": "D",
+        "points": 2
+      },
+      {
+        "grade": "F",
+        "points": 0
+      }
+    ],
+    "source": {
+      "url": "https://registrar.mit.edu/classes-grades-evaluations/grades/calculating-gpa",
+      "title": "MIT Registrar — Calculating GPA",
+      "verified": "2026-09-23"
+    },
+    "notes": [
+      "MIT is unusual in using a 5.0 scale rather than the common 4.0: A=5, B=4, C=3, D=2, F=0.",
+      "MIT's registrar also publishes a 4.0-equivalent conversion (A=4, B=3, C=2, D=1, F=0) for external comparisons — see the letter-only 4.0 scale.",
+      "First-year first-semester subjects are graded Pass/No Record and are not included in GPA."
+    ]
+  },
+  {
+    "slug": "harvard-fas-4-0",
+    "name": "Harvard FAS Grading Scale",
+    "short": "Harvard (4.0)",
+    "kind": "letter",
+    "region": "United States — Harvard College / FAS",
+    "max": 4,
+    "passing": 0.67,
+    "rows": [
+      {
+        "grade": "A",
+        "points": 4
+      },
+      {
+        "grade": "A-",
+        "points": 3.67
+      },
+      {
+        "grade": "B+",
+        "points": 3.33
+      },
+      {
+        "grade": "B",
+        "points": 3
+      },
+      {
+        "grade": "B-",
+        "points": 2.67
+      },
+      {
+        "grade": "C+",
+        "points": 2.33
+      },
+      {
+        "grade": "C",
+        "points": 2
+      },
+      {
+        "grade": "C-",
+        "points": 1.67
+      },
+      {
+        "grade": "D+",
+        "points": 1.33
+      },
+      {
+        "grade": "D",
+        "points": 1
+      },
+      {
+        "grade": "D-",
+        "points": 0.67
+      },
+      {
+        "grade": "E",
+        "points": 0,
+        "label": "Failing"
+      }
+    ],
+    "source": {
+      "url": "https://infoforfaculty.fas.harvard.edu/book/grade-point-averages",
+      "title": "Harvard FAS — Grade Point Averages",
+      "verified": "2026-09-23"
+    },
+    "notes": [
+      "Harvard's Faculty of Arts and Sciences does not award A+ or boost the GPA above 4.0.",
+      "Pass/fail courses, and notations such as ABS and UNS, are excluded from the GPA."
+    ]
+  },
+  {
+    "slug": "purdue-4-0",
+    "name": "Purdue University Grading Scale",
+    "short": "Purdue (4.0)",
+    "kind": "letter",
+    "region": "United States — Purdue University",
+    "max": 4,
+    "passing": 0.7,
+    "rows": [
+      {
+        "grade": "A+",
+        "points": 4
+      },
+      {
+        "grade": "A",
+        "points": 4
+      },
+      {
+        "grade": "A-",
+        "points": 3.7
+      },
+      {
+        "grade": "B+",
+        "points": 3.3
+      },
+      {
+        "grade": "B",
+        "points": 3
+      },
+      {
+        "grade": "B-",
+        "points": 2.7
+      },
+      {
+        "grade": "C+",
+        "points": 2.3
+      },
+      {
+        "grade": "C",
+        "points": 2
+      },
+      {
+        "grade": "C-",
+        "points": 1.7
+      },
+      {
+        "grade": "D+",
+        "points": 1.3
+      },
+      {
+        "grade": "D",
+        "points": 1
+      },
+      {
+        "grade": "D-",
+        "points": 0.7
+      },
+      {
+        "grade": "F",
+        "points": 0
+      }
+    ],
+    "source": {
+      "url": "https://polytechnic.purdue.edu/office-academic-advising/academic-standards",
+      "title": "Purdue Polytechnic — Office of Academic Advising: Academic Standards (grade weight table)",
+      "verified": "2026-09-23"
+    },
+    "notes": [
+      "Purdue uses a plus/minus 4.0 scale, but unlike some peer schools, A+ carries no bonus — both A+ and A equal 4.0 grade points.",
+      "Repeated courses use only the most recent grade in the GPA; earlier attempts remain on the transcript but are excluded.",
+      "Values are one-decimal grade weights (3.7, 3.3, …) as published by Purdue Polytechnic's academic-standards page; the main Office of the Registrar grading page does not publish a grade-point table."
+    ]
+  },
+  {
+    "slug": "ut-austin-4-0",
+    "name": "UT Austin Grading Scale",
+    "short": "UT Austin (4.0)",
+    "kind": "letter",
+    "region": "United States — University of Texas at Austin",
+    "max": 4,
+    "passing": 0.67,
+    "rows": [
+      {
+        "grade": "A",
+        "points": 4
+      },
+      {
+        "grade": "A-",
+        "points": 3.67
+      },
+      {
+        "grade": "B+",
+        "points": 3.33
+      },
+      {
+        "grade": "B",
+        "points": 3
+      },
+      {
+        "grade": "B-",
+        "points": 2.67
+      },
+      {
+        "grade": "C+",
+        "points": 2.33
+      },
+      {
+        "grade": "C",
+        "points": 2
+      },
+      {
+        "grade": "C-",
+        "points": 1.67
+      },
+      {
+        "grade": "D+",
+        "points": 1.33
+      },
+      {
+        "grade": "D",
+        "points": 1
+      },
+      {
+        "grade": "D-",
+        "points": 0.67
+      },
+      {
+        "grade": "F",
+        "points": 0
+      }
+    ],
+    "source": {
+      "url": "https://catalog.utexas.edu/general-information/academic-policies-and-procedures/computation-of-the-grade-point-average/",
+      "title": "UT Austin Catalog — Computation of the Grade Point Average",
+      "verified": "2026-09-23"
+    },
+    "notes": [
+      "UT Austin has no A+ grade — A is the highest possible grade and is worth 4.00.",
+      "GPA is computed by the registrar from grade points × semester hours, divided by total GPA-eligible hours."
+    ]
+  },
+  {
+    "slug": "penn-state-4-0",
+    "name": "Penn State Grading Scale",
+    "short": "Penn State (4.0)",
+    "kind": "letter",
+    "region": "United States — Penn State",
+    "max": 4,
+    "passing": 1,
+    "rows": [
+      {
+        "grade": "A",
+        "points": 4
+      },
+      {
+        "grade": "A-",
+        "points": 3.67
+      },
+      {
+        "grade": "B+",
+        "points": 3.33
+      },
+      {
+        "grade": "B",
+        "points": 3
+      },
+      {
+        "grade": "B-",
+        "points": 2.67
+      },
+      {
+        "grade": "C+",
+        "points": 2.33
+      },
+      {
+        "grade": "C",
+        "points": 2
+      },
+      {
+        "grade": "D",
+        "points": 1
+      },
+      {
+        "grade": "F",
+        "points": 0
+      }
+    ],
+    "source": {
+      "url": "https://www.registrar.psu.edu/grades/grade-point-average.cfm",
+      "title": "Penn State Office of the University Registrar — Grade-Point Average",
+      "verified": "2026-09-23"
+    },
+    "notes": [
+      "Penn State's official summary lists only nine grades toward GPA — there is no A+, C-, or D+ in the official table.",
+      "Grades of Pass/Fail (Sa/Un), Withdraw and Incomplete are excluded from the GPA."
+    ]
+  },
+  {
+    "slug": "university-of-toronto-4-0",
+    "name": "University of Toronto Grading Scale",
+    "short": "U of T (4.0)",
+    "kind": "letter",
+    "region": "Canada — University of Toronto",
+    "max": 4,
+    "passing": 0.7,
+    "rows": [
+      {
+        "grade": "A+",
+        "points": 4,
+        "min": 90,
+        "max": 100
+      },
+      {
+        "grade": "A",
+        "points": 4,
+        "min": 85,
+        "max": 89.99
+      },
+      {
+        "grade": "A-",
+        "points": 3.7,
+        "min": 80,
+        "max": 84.99
+      },
+      {
+        "grade": "B+",
+        "points": 3.3,
+        "min": 77,
+        "max": 79.99
+      },
+      {
+        "grade": "B",
+        "points": 3,
+        "min": 73,
+        "max": 76.99
+      },
+      {
+        "grade": "B-",
+        "points": 2.7,
+        "min": 70,
+        "max": 72.99
+      },
+      {
+        "grade": "C+",
+        "points": 2.3,
+        "min": 67,
+        "max": 69.99
+      },
+      {
+        "grade": "C",
+        "points": 2,
+        "min": 63,
+        "max": 66.99
+      },
+      {
+        "grade": "C-",
+        "points": 1.7,
+        "min": 60,
+        "max": 62.99
+      },
+      {
+        "grade": "D+",
+        "points": 1.3,
+        "min": 57,
+        "max": 59.99
+      },
+      {
+        "grade": "D",
+        "points": 1,
+        "min": 53,
+        "max": 56.99
+      },
+      {
+        "grade": "D-",
+        "points": 0.7,
+        "min": 50,
+        "max": 52.99
+      },
+      {
+        "grade": "F",
+        "points": 0,
+        "min": 0,
+        "max": 49.99
+      }
+    ],
+    "source": {
+      "url": "https://www.registrar.utoronto.ca/records-academics/transcripts/grading-scales-notations/",
+      "title": "University of Toronto Registrar — Grading Scales & Notations",
+      "verified": "2026-09-23"
+    },
+    "notes": [
+      "One province-wide, university-wide policy applies at all three campuses (St. George, UTM, UTSC), in effect since September 1998.",
+      "Graduate and select professional programs (Law, Medicine, Dentistry, Nursing) use different scales."
+    ]
+  },
+  {
+    "slug": "ubc-percent",
+    "name": "UBC Percentage Grading Scale",
+    "short": "UBC (%)",
+    "kind": "percent",
+    "region": "Canada — University of British Columbia",
+    "max": 100,
+    "passing": 50,
+    "rows": [
+      {
+        "grade": "A+",
+        "points": null,
+        "min": 90,
+        "max": 100
+      },
+      {
+        "grade": "A",
+        "points": null,
+        "min": 85,
+        "max": 89.99
+      },
+      {
+        "grade": "A-",
+        "points": null,
+        "min": 80,
+        "max": 84.99
+      },
+      {
+        "grade": "B+",
+        "points": null,
+        "min": 76,
+        "max": 79.99
+      },
+      {
+        "grade": "B",
+        "points": null,
+        "min": 72,
+        "max": 75.99
+      },
+      {
+        "grade": "B-",
+        "points": null,
+        "min": 68,
+        "max": 71.99
+      },
+      {
+        "grade": "C+",
+        "points": null,
+        "min": 64,
+        "max": 67.99
+      },
+      {
+        "grade": "C",
+        "points": null,
+        "min": 60,
+        "max": 63.99
+      },
+      {
+        "grade": "C-",
+        "points": null,
+        "min": 55,
+        "max": 59.99
+      },
+      {
+        "grade": "D",
+        "points": null,
+        "min": 50,
+        "max": 54.99
+      },
+      {
+        "grade": "F",
+        "points": null,
+        "min": 0,
+        "max": 49.99,
+        "label": "Fail"
+      }
+    ],
+    "source": {
+      "url": "https://vancouver.calendar.ubc.ca/campus-wide-policies-and-regulations/grading-practices/introduction",
+      "title": "UBC Academic Calendar — Grading Practices",
+      "verified": "2026-09-23"
+    },
+    "notes": [
+      "UBC's primary scale is the percentage mark itself, shown here with the standard letter-grade bands used by most faculties.",
+      "The Fail threshold varies by program (e.g. below 60% in Pharmacy's Doctor of Pharmacy program, below 50% in Bachelor of Pharmaceutical Sciences).",
+      "UBC's official calendar does not publish a single university-wide numeric grade-point column, so this page intentionally omits one rather than guessing."
+    ]
+  },
+  {
+    "slug": "uk-classification",
+    "name": "UK Honours Degree Classification",
+    "short": "UK Honours",
+    "kind": "classification",
+    "region": "United Kingdom",
+    "max": 100,
+    "passing": 40,
+    "rows": [
+      {
+        "grade": "1st",
+        "points": null,
+        "min": 70,
+        "max": 100,
+        "label": "First-Class Honours"
+      },
+      {
+        "grade": "2:1",
+        "points": null,
+        "min": 60,
+        "max": 69.99,
+        "label": "Upper Second-Class Honours"
+      },
+      {
+        "grade": "2:2",
+        "points": null,
+        "min": 50,
+        "max": 59.99,
+        "label": "Lower Second-Class Honours"
+      },
+      {
+        "grade": "3rd",
+        "points": null,
+        "min": 40,
+        "max": 49.99,
+        "label": "Third-Class Honours"
+      },
+      {
+        "grade": "Fail",
+        "points": null,
+        "min": 0,
+        "max": 39.99,
+        "label": "Fail (no honours)"
+      }
+    ],
+    "source": {
+      "url": "https://www.ucl.ac.uk/students/certificates-results/uk-honours-degree-system-undergraduates",
+      "title": "UCL — The UK Honours Degree System for Undergraduates",
+      "verified": "2026-09-23"
+    },
+    "notes": [
+      "The 70/60/50/40 boundaries are the most widely used convention across UK universities, but each institution sets its own regulations under the QAA's UK Quality Code — some vary the exact cut-offs or use borderline-review rules.",
+      "An Ordinary (unclassified) Pass degree, below Third-Class honours, is typically awarded around 35–39%."
+    ]
+  },
+  {
+    "slug": "india-cgpa",
+    "name": "India CGPA to Percentage (CBSE)",
+    "short": "CGPA → % (India)",
+    "kind": "cgpa",
+    "region": "India — CBSE",
+    "max": 10,
+    "passing": 4,
+    "rows": [
+      {
+        "grade": "A1",
+        "points": 10,
+        "min": 91,
+        "max": 100
+      },
+      {
+        "grade": "A2",
+        "points": 9,
+        "min": 81,
+        "max": 90.99
+      },
+      {
+        "grade": "B1",
+        "points": 8,
+        "min": 71,
+        "max": 80.99
+      },
+      {
+        "grade": "B2",
+        "points": 7,
+        "min": 61,
+        "max": 70.99
+      },
+      {
+        "grade": "C1",
+        "points": 6,
+        "min": 51,
+        "max": 60.99
+      },
+      {
+        "grade": "C2",
+        "points": 5,
+        "min": 41,
+        "max": 50.99
+      },
+      {
+        "grade": "D",
+        "points": 4,
+        "min": 33,
+        "max": 40.99
+      },
+      {
+        "grade": "E",
+        "points": 0,
+        "min": 0,
+        "max": 32.99,
+        "label": "Needs improvement"
+      }
+    ],
+    "source": {
+      "url": "https://cbseacademic.nic.in/web_material/Circulars/2014/5_Modified_Performance_Profile_2014.pdf",
+      "title": "CBSE Academic — Modified Performance Profile Circular",
+      "verified": "2026-09-23"
+    },
+    "notes": [
+      "CBSE's official convention: indicative percentage = CGPA × 9.5 (so a perfect 10 CGPA is reported as 95%, not 100%).",
+      "This is the CBSE Class 10/12 convention specifically. Individual universities and boards (state boards, CGPA-to-percentage on university transcripts) often set their own multiplier — always use the formula printed on your own marksheet for official purposes."
+    ]
+  },
+  {
+    "slug": "ects",
+    "name": "ECTS Grading Scale",
+    "short": "ECTS (EU)",
+    "kind": "ects",
+    "region": "Europe — ECTS",
+    "max": 5,
+    "passing": 1,
+    "rows": [
+      {
+        "grade": "A",
+        "points": 5,
+        "label": "Excellent — top 10% of successful students"
+      },
+      {
+        "grade": "B",
+        "points": 4,
+        "label": "Very good — next 25%"
+      },
+      {
+        "grade": "C",
+        "points": 3,
+        "label": "Good — next 30%"
+      },
+      {
+        "grade": "D",
+        "points": 2,
+        "label": "Satisfactory — next 25%"
+      },
+      {
+        "grade": "E",
+        "points": 1,
+        "label": "Sufficient — next 10% (minimum pass)"
+      },
+      {
+        "grade": "FX",
+        "points": 0,
+        "label": "Fail — some more work required"
+      },
+      {
+        "grade": "F",
+        "points": 0,
+        "label": "Fail — considerable further work required"
+      }
+    ],
+    "source": {
+      "url": "https://erasmus-plus.ec.europa.eu/eche/a-common-approach-to-ects-grade-conversion-ensuring-a-fair-assessment-of-student-performance-after-study-abroad",
+      "title": "European Commission — Erasmus+: ECTS Grade Conversion",
+      "verified": "2026-09-23"
+    },
+    "notes": [
+      "The classic A–F letter scale was the original ECTS design, based on the statistical rank of successful students (A = top 10%, B = next 25%, etc.), not fixed percentage bands.",
+      "The European Commission's guide now favours institution-specific ECTS Grade Distribution Tables over the fixed A–F letters for exchange-grade conversion, but many institutions and conversion services still reference the classic scale shown here."
+    ]
+  },
+  {
+    "slug": "germany-bavarian",
+    "name": "Germany Grading Scale",
+    "short": "Germany (1.0–5.0)",
+    "kind": "numeric",
+    "region": "Germany",
+    "max": 1,
+    "passing": 4,
+    "rows": [
+      {
+        "grade": "1.0–1.5",
+        "points": 1,
+        "label": "Sehr gut (Very good)"
+      },
+      {
+        "grade": "1.6–2.5",
+        "points": 2,
+        "label": "Gut (Good)"
+      },
+      {
+        "grade": "2.6–3.5",
+        "points": 3,
+        "label": "Befriedigend (Satisfactory)"
+      },
+      {
+        "grade": "3.6–4.0",
+        "points": 4,
+        "label": "Ausreichend (Sufficient — minimum pass)"
+      },
+      {
+        "grade": ">4.0",
+        "points": 5,
+        "label": "Nicht ausreichend (Fail)"
+      }
+    ],
+    "source": {
+      "url": "https://backend.uni-heidelberg.de/en/documents/modified-bavarian-formula/download",
+      "title": "Heidelberg University — Grade Conversion with the Modified Bavarian Formula",
+      "verified": "2026-09-23"
+    },
+    "notes": [
+      "German grades run 1.0 (best) to 5.0 (fail); 4.0 is the lowest passing grade — lower numbers are better, the reverse of most other scales.",
+      "The Modified Bavarian Formula converts a foreign grade into this scale: German grade = 1 + 3 × (max − your grade) / (max − min passing grade). It is the standard adopted by the Kultusministerkonferenz (Conference of Education Ministers) and used by uni-assist for most international transcripts."
+    ],
+    "inverted": true
+  },
+  {
+    "slug": "france-20",
+    "name": "France /20 Grading Scale",
+    "short": "France (/20)",
+    "kind": "numeric",
+    "region": "France",
+    "max": 20,
+    "passing": 10,
+    "rows": [
+      {
+        "grade": "16–20",
+        "points": 18,
+        "label": "Très bien (Very good / summa cum laude)"
+      },
+      {
+        "grade": "14–15.9",
+        "points": 15,
+        "label": "Bien (Good / magna cum laude)"
+      },
+      {
+        "grade": "12–13.9",
+        "points": 13,
+        "label": "Assez bien (Quite good / cum laude)"
+      },
+      {
+        "grade": "10–11.9",
+        "points": 11,
+        "label": "Passable (Pass)"
+      },
+      {
+        "grade": "0–9.9",
+        "points": 5,
+        "label": "Ajourné (Fail)"
+      }
+    ],
+    "source": {
+      "url": "https://www.univ-catholille.fr/wp-content/uploads/2024/07/Grading_Scale_at_UCLille.pdf",
+      "title": "Université Catholique de Lille — Grading Scale",
+      "verified": "2026-09-23"
+    },
+    "notes": [
+      "France grades on a scale of 0 to 20; 10/20 is the usual minimum to pass, and scores above 16 are rare by design.",
+      "\"Mentions\" (Très bien, Bien, Assez bien, Passable) are the honours labels attached to the overall average, not a per-assignment scale — the numeric ranges above are the standard convention used across French higher education.",
+      "The per-band point values above (18/15/13/11/5) are GradeGoal's own representative midpoints for each mention, not an official French point scale — France does not publish per-course GPA points, so this scale is reference-only and is not offered in the interactive averager."
+    ],
+    "descriptive": true
+  }
+]

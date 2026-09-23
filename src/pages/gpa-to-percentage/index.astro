@@ -1,0 +1,64 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Faq from '../../components/Faq.astro';
+import Share from '../../components/Share.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import MoreTools from '../../components/MoreTools.astro';
+import { GpaToPercentage } from '../../components/islands/Converters';
+import { webAppLd, breadcrumbLd, BUILD_DATE_ISO } from '../../lib/seo';
+import { absoluteUrl, withBase } from '../../lib/url';
+
+const title = 'GPA to Percentage Converter';
+const description = 'Convert a GPA (4.0 or 4.3 scale) to an approximate percentage grade, using a common convention for letter-grade bands.';
+const faqs = [
+  {
+    q: 'Is there an exact formula from GPA to percentage?',
+    a: 'No single formula — GPA is a letter-grade summary, so converting back to a percentage only gives you the typical range for that letter (e.g. an A- is usually 90–92%). Your actual percentage could be anywhere in that band.',
+  },
+  {
+    q: 'What about India\'s CGPA to percentage?',
+    a: 'That uses a different, documented formula (percentage = CGPA × 9.5 for CBSE). See the <a href="' + withBase('/gpa-scale/india-cgpa/') + '">India CGPA scale page</a>.',
+  },
+];
+---
+
+<Base
+  title={title}
+  description={description}
+  jsonLd={[webAppLd({ name: 'GPA to Percentage Converter', url: '/gpa-to-percentage/', description }), breadcrumbLd([{ name: 'Home', url: '/' }, { name: 'GPA to Percentage', url: '/gpa-to-percentage/' }])]}
+>
+  <article class="container container--narrow section">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'GPA to Percentage', url: '/gpa-to-percentage/' }]} />
+    <h1>GPA to Percentage Converter</h1>
+    <p class="lead">Enter a GPA on the 4.0/4.3 scale to see the closest letter grade and its typical percentage range.</p>
+    <p class="muted small">Last updated {BUILD_DATE_ISO}</p>
+  </article>
+
+  <section class="container" aria-label="GPA to percentage converter">
+    <GpaToPercentage client:load />
+  </section>
+
+  <AdSlot slot="gpa-to-pct-below-tool" minHeight={90} />
+
+  <article class="container container--narrow section prose">
+    <p>
+      Need the reverse? Try <a href={withBase('/percentage-to-gpa/')}>percentage to GPA</a> or <a href={withBase('/letter-grade-to-gpa/')}>letter grade to GPA</a>. For a
+      full course or semester, use the <a href={withBase('/gpa-calculator/')}>GPA calculator</a>.
+    </p>
+    <Share url={absoluteUrl('/gpa-to-percentage/')} text="GPA to Percentage Converter" />
+  </article>
+
+  <section class="container container--narrow">
+    <Faq items={faqs} />
+  </section>
+
+  <MoreTools />
+</Base>
+
+<style>
+  .lead {
+    font-size: var(--text-lg);
+    color: var(--fg-muted);
+  }
+</style>

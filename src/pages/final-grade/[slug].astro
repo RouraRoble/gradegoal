@@ -1,0 +1,128 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Faq from '../../components/Faq.astro';
+import Share from '../../components/Share.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import MoreTools from '../../components/MoreTools.astro';
+import { finalGradeMatrix, feasibility, FEASIBILITY_LABEL, fmt } from '../../lib/grades';
+import { articleLd, breadcrumbLd, BUILD_DATE_ISO } from '../../lib/seo';
+import { absoluteUrl, withBase } from '../../lib/url';
+import { site } from '../../site.config';
+
+export function getStaticPaths() {
+  const WEIGHTS = [10, 15, 20, 25, 30, 35, 40, 50];
+  return WEIGHTS.map((weight) => ({ params: { slug: `${weight}-percent-final` }, props: { weight } }));
+}
+
+const WEIGHTS = [10, 15, 20, 25, 30, 35, 40, 50];
+const CURRENTS = [50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100];
+const TARGETS = [60, 65, 70, 75, 80, 85, 90, 95];
+
+const { weight } = Astro.props as { weight: number };
+const matrix = finalGradeMatrix(weight, CURRENTS, TARGETS);
+const title = `Final Worth ${weight}% of Your Grade — Needed Score Table`;
+const description = `What score do you need on a final worth ${weight}% of your course grade? Full table: current grade (50–100%) × target grade (60–95%), with exact needed score and feasibility.`;
+const path = `/final-grade/${weight}-percent-final/`;
+
+// Answer-first example: a "typical" row (current 85, target 90) so the intro paragraph states a real number.
+const exampleNeeded = matrix.find((r) => r.current === 85)?.cells.find((c) => c.target === 90)?.needed;
+
+const faqs = [
+  {
+    q: `If my final is worth ${weight}% and I have an 85%, what do I need for a 90%?`,
+    a: `${Number.isFinite(exampleNeeded) ? `You'd need ${fmt(exampleNeeded as number)}% on the final.` : 'See the table above for this exact combination.'} Use the table above for your exact current grade and target, or the <a href="${withBase('/final-grade-calculator/')}">full calculator</a> for any weight.`,
+  },
+  {
+    q: 'Why does a lower current grade need a much higher final score?',
+    a: `With the final worth ${weight}% of your grade, the other ${100 - weight}% is fixed by what you've already earned. The lower that fixed portion, the more the final has to make up — small differences in your current grade can mean large differences in the score you need.`,
+  },
+  {
+    q: 'What does "impossible" mean in this table?',
+    a: 'It means the needed score is above 100% — that target grade cannot be reached on this final alone, even with a perfect score, unless your course offers extra credit.',
+  },
+];
+---
+
+<Base
+  title={title}
+  description={description}
+  jsonLd={[
+    articleLd({ headline: title, description, url: path, datePublished: site.launched }),
+    breadcrumbLd([{ name: 'Home', url: '/' }, { name: 'Final Grade Calculator', url: '/final-grade-calculator/' }, { name: `${weight}% Final`, url: path }]),
+  ]}
+>
+  <article class="container container--narrow section">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Final Grade Calculator', url: '/final-grade-calculator/' }, { name: `${weight}% Final`, url: path }]} />
+    <h1>Final Worth {weight}% of Your Grade</h1>
+    <p class="lead">
+      When your final counts for <strong>{weight}%</strong> of your course grade, the table below shows the exact score you need on it for every combination of current
+      grade and target grade. {Number.isFinite(exampleNeeded) && (
+        <>
+          For example, with an 85% now, you'd need <strong>{fmt(exampleNeeded as number)}%</strong> on the final to reach a 90% overall.
+        </>
+      )}
+    </p>
+    <p class="muted small">Last updated {BUILD_DATE_ISO}</p>
+    <p>
+      <a class="btn btn--secondary" href={withBase(`/final-grade-calculator/?c=85&w=${weight}&t=90`)}>Open this in the full calculator →</a>
+    </p>
+  </article>
+
+  <section class="container section" aria-label={`Needed final score table for a final worth ${weight}%`}>
+    <div class="table-wrap">
+      <table class="matrix">
+        <caption class="visually-hidden">Score needed on a {weight}%-weighted final, by current grade (rows) and target grade (columns)</caption>
+        <thead>
+          <tr>
+            <th scope="col">Current ↓ / Target →</th>
+            {TARGETS.map((t) => <th scope="col">{t}%</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {matrix.map((row) => (
+            <tr>
+              <th scope="row">{row.current}%</th>
+              {row.cells.map((cell) => {
+                const tone = feasibility(cell.needed);
+                return (
+                  <td data-tone={tone} title={FEASIBILITY_LABEL[tone]}>
+                    {Number.isFinite(cell.needed) ? `${fmt(cell.needed)}%` : '—'}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="field__hint">
+      <span class="badge" data-tone="secured">Secured</span> already there ·{' '}
+      <span class="badge" data-tone="ok">Doable</span> realistic ·{' '}
+      <span class="badge" data-tone="hard">Tough</span> above 85% needed ·{' '}
+      <span class="badge" data-tone="impossible">Not possible</span> over 100%
+    </p>
+  </section>
+
+  <AdSlot slot="final-grade-weight-below-table" minHeight={90} />
+
+  <article class="container container--narrow section prose">
+    <h2>Other final weights</h2>
+    <ul>
+      {WEIGHTS.map((w) => (
+        <li>
+          <a href={withBase(`/final-grade/${w}-percent-final/`)} aria-current={w === weight ? 'page' : undefined}>
+            Final worth {w}%
+          </a>
+        </li>
+      ))}
+    </ul>
+    <Share url={absoluteUrl(path)} text={`What do I need on a final worth ${weight}%?`} />
+  </article>
+
+  <section class="container container--narrow">
+    <Faq items={faqs} />
+  </section>
+
+  <MoreTools />
+</Base>

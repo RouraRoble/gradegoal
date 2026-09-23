@@ -1,0 +1,95 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Faq from '../../components/Faq.astro';
+import Share from '../../components/Share.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import MoreTools from '../../components/MoreTools.astro';
+import GradeBook from '../../components/islands/GradeBook';
+import { webAppLd, breadcrumbLd, howToLd, BUILD_DATE_ISO } from '../../lib/seo';
+import { absoluteUrl, withBase } from '../../lib/url';
+
+const title = 'Weighted Grade Calculator';
+const description =
+  'Free weighted grade calculator: add categories and weights, drop your lowest scores per category, and see your live current grade. Save courses locally, export or print.';
+const faqs = [
+  {
+    q: 'How does drop-lowest work?',
+    a: 'Set "Drop lowest" on a category to the number of scores to exclude. GradeGoal always keeps at least one graded item in a category, even if you set a higher drop count.',
+  },
+  {
+    q: 'Why does my current grade change when I add a "what-if" row?',
+    a: 'What-if rows are excluded from "Current grade" but included in "With what-ifs" — so you can test a hypothetical score without it affecting the grade you actually have right now.',
+  },
+  {
+    q: 'What happens if my weights don\'t add up to 100%?',
+    a: 'GradeGoal renormalises across categories that actually have a graded item — the same way most learning-management systems compute a running grade. The weight total is shown so you can catch typos.',
+  },
+  {
+    q: 'Can I share this with my teacher?',
+    a: 'Yes — "Copy teacher link" creates a URL with your categories and weights but no scores, so you can send them your grading structure without sharing your grades.',
+  },
+];
+---
+
+<Base
+  title={title}
+  description={description}
+  jsonLd={[
+    webAppLd({ name: 'Weighted Grade Calculator', url: '/grade-calculator/', description, features: ['Weighted categories', 'Drop lowest score', 'What-if grades', 'Save courses locally', 'Export/import JSON'] }),
+    breadcrumbLd([{ name: 'Home', url: '/' }, { name: 'Weighted Grade Calculator', url: '/grade-calculator/' }]),
+    howToLd({
+      name: 'How to calculate your weighted course grade',
+      description: 'Build a running weighted grade from categories, weights and assignment scores.',
+      steps: [
+        { name: 'Add your categories', text: 'Add each grading category (Homework, Exams, …) and its weight as a percentage of the course.' },
+        { name: 'Enter assignment scores', text: 'Add each graded item as score / possible within its category.' },
+        { name: 'Set drop-lowest (optional)', text: 'Exclude a category\'s lowest score or two, if your syllabus allows it.' },
+        { name: 'Read your current grade', text: 'The running weighted average updates live, renormalised across categories that have a graded item.' },
+      ],
+    }),
+  ]}
+>
+  <article class="container container--narrow section">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Weighted Grade Calculator', url: '/grade-calculator/' }]} />
+    <h1>Weighted Grade Calculator</h1>
+    <p class="lead">
+      Add your grading categories and weights, enter each assignment's score, and see your current grade update live — with drop-lowest, what-if rows, and courses saved
+      right in your browser.
+    </p>
+    <p class="muted small">Last updated {BUILD_DATE_ISO}</p>
+  </article>
+
+  <section class="container" aria-label="Weighted grade calculator">
+    <GradeBook client:load />
+  </section>
+
+  <AdSlot slot="grade-calculator-below-tool" minHeight={90} />
+
+  <article class="container container--narrow section prose">
+    <h2>How your current grade is calculated</h2>
+    <p>
+      Each category's average is the sum of scores earned divided by points possible (or an equal-weight average of percentages, your choice). Categories with no graded
+      items are skipped and the remaining weights are renormalised — the same convention most gradebooks use, so your "current grade" matches what you'd see in Canvas
+      or PowerSchool.
+    </p>
+    <p>
+      Once the semester ends, carry your grade into the <a href={withBase('/gpa-calculator/')}>GPA calculator</a>, or check
+      <a href={withBase('/final-grade-calculator/')}>what you need on the final</a> before it's graded.
+    </p>
+    <Share url={absoluteUrl('/grade-calculator/')} text="Weighted Grade Calculator — track your running grade" />
+  </article>
+
+  <section class="container container--narrow">
+    <Faq items={faqs} />
+  </section>
+
+  <MoreTools />
+</Base>
+
+<style>
+  .lead {
+    font-size: var(--text-lg);
+    color: var(--fg-muted);
+  }
+</style>

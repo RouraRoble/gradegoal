@@ -1,0 +1,340 @@
+/* Shared styles for the interactive Preact islands (FinalGrade, GradeBook, Gpa, Planner). */
+
+.tool {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: var(--space-6);
+}
+@media (max-width: 640px) {
+  .tool {
+    padding: var(--space-4);
+    border-radius: var(--radius);
+  }
+}
+
+.tool__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: var(--space-3);
+}
+.tool__tab {
+  min-height: 40px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--fg-muted);
+  font: inherit;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+.tool__tab:hover {
+  color: var(--fg);
+}
+.tool__tab[aria-selected='true'] {
+  background: var(--bg-muted);
+  color: var(--link);
+  border-color: var(--border);
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+.field {
+  display: flex;
+  flex-direction: column;
+}
+.field__hint {
+  font-size: var(--text-xs);
+  color: var(--fg-muted);
+  margin-top: var(--space-1);
+  font-weight: 400;
+}
+.field--inline {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-2);
+}
+.field--inline label {
+  margin: 0;
+}
+
+.result {
+  border-radius: var(--radius);
+  padding: var(--space-5);
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+  margin-bottom: var(--space-5);
+}
+.result[data-tone='secured'],
+.result[data-tone='easy'] {
+  background: var(--success-bg);
+  border-color: color-mix(in srgb, var(--success) 35%, var(--border));
+}
+.result[data-tone='ok'] {
+  background: var(--bg-muted);
+}
+.result[data-tone='hard'] {
+  background: var(--warning-bg);
+  border-color: color-mix(in srgb, var(--warning) 35%, var(--border));
+}
+.result[data-tone='impossible'] {
+  background: var(--danger-bg);
+  border-color: color-mix(in srgb, var(--danger) 35%, var(--border));
+}
+
+.result__label {
+  font-size: var(--text-sm);
+  color: var(--fg-muted);
+  margin: 0 0 var(--space-1);
+}
+.result__value {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 1.7rem + 2vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1;
+  margin: 0 0 var(--space-2);
+  letter-spacing: -0.02em;
+}
+.result__verdict {
+  font-size: var(--text-lg);
+  margin: 0;
+}
+.result__verdict strong {
+  font-weight: 700;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  padding: 2px var(--space-2);
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+.badge[data-tone='secured'],
+.badge[data-tone='easy'] {
+  background: var(--success-bg);
+  color: var(--success);
+}
+.badge[data-tone='ok'] {
+  background: color-mix(in srgb, var(--accent) 16%, var(--bg-muted));
+  color: var(--accent-strong);
+}
+.badge[data-tone='hard'] {
+  background: var(--warning-bg);
+  color: var(--warning);
+}
+.badge[data-tone='impossible'] {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.tool table.matrix {
+  font-size: var(--text-sm);
+}
+.tool table.matrix td[data-tone] {
+  font-weight: 600;
+}
+.tool table.matrix td[data-tone='secured'],
+.tool table.matrix td[data-tone='easy'] {
+  color: var(--success);
+}
+.tool table.matrix td[data-tone='hard'] {
+  color: var(--warning);
+}
+.tool table.matrix td[data-tone='impossible'] {
+  color: var(--danger);
+}
+
+.tool__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.tool__row + .tool__row {
+  margin-top: var(--space-3);
+}
+.tool__actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: var(--space-5);
+}
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 40px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--bg-elevated);
+  color: var(--fg);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+.icon-btn:hover {
+  border-color: var(--accent);
+  color: var(--link);
+}
+.icon-btn--danger:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.category {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
+  background: var(--bg-elevated);
+}
+.category__head {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-3);
+}
+.category__head .field {
+  flex: 1 1 8rem;
+}
+.item-row {
+  display: grid;
+  grid-template-columns: 1fr 5.5rem auto 5.5rem auto;
+  gap: var(--space-2);
+  align-items: center;
+  margin-bottom: var(--space-2);
+}
+.item-row input[type='number'] {
+  min-height: 40px;
+}
+@media (max-width: 560px) {
+  /* Name on its own row; score / "/" / possible grouped tightly on the next row, remove button
+     sized to its content instead of stretching full-width (was a bare "/" and a full-width "✕"). */
+  .item-row {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto;
+    grid-template-areas: 'name name name name' 'score sep possible remove';
+  }
+  .item-row input[aria-label='Item name'],
+  .item-row input[aria-label='Course name'] {
+    grid-area: name;
+  }
+  .item-row input[aria-label='Score earned'] {
+    grid-area: score;
+    min-width: 0;
+  }
+  .item-row__sep {
+    grid-area: sep;
+  }
+  .item-row input[aria-label='Points possible'] {
+    grid-area: possible;
+    min-width: 0;
+  }
+  .item-row .icon-btn--danger {
+    grid-area: remove;
+    padding-inline: var(--space-2);
+  }
+}
+.item-row__sep {
+  color: var(--fg-muted);
+  text-align: center;
+}
+
+.item-row--gpa {
+  grid-template-columns: 1fr 6rem 5.5rem auto auto;
+}
+@media (max-width: 560px) {
+  .item-row--gpa {
+    grid-template-columns: 1fr 1fr;
+  }
+  .item-row--gpa input[aria-label='Course name'] {
+    grid-column: 1 / -1;
+  }
+  .item-row--gpa select[aria-label='Grade'] {
+    min-width: 0;
+  }
+}
+
+.summary-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+.summary-strip__item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-4);
+  background: var(--bg-muted);
+}
+.summary-strip__item strong {
+  font-family: var(--font-display);
+  display: block;
+  font-size: var(--text-2xl);
+  color: var(--link);
+}
+.summary-strip__item span {
+  font-size: var(--text-xs);
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.course-tabs {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-4);
+}
+.course-tab {
+  min-height: 36px;
+  padding: 0 var(--space-3);
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-elevated);
+  font: inherit;
+  font-size: var(--text-sm);
+  cursor: pointer;
+  color: var(--fg-muted);
+}
+.course-tab[aria-selected='true'] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.status-msg {
+  font-size: var(--text-sm);
+  color: var(--fg-muted);
+  min-height: 1.2em;
+}
+.status-msg[role='alert'] {
+  color: var(--danger);
+}
+
+.visually-hidden-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}

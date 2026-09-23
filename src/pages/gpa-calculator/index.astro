@@ -1,0 +1,96 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Faq from '../../components/Faq.astro';
+import Share from '../../components/Share.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import MoreTools from '../../components/MoreTools.astro';
+import Gpa from '../../components/islands/Gpa';
+import { webAppLd, breadcrumbLd, howToLd, BUILD_DATE_ISO } from '../../lib/seo';
+import { absoluteUrl, withBase } from '../../lib/url';
+
+const title = 'GPA Calculator — Semester & Cumulative';
+const description =
+  'Free GPA calculator for semester and cumulative GPA. 20 researched grading scales — 14 usable in the calculator (US 4.0/4.3/5.0 and more), plus reference tables.';
+const faqs = [
+  {
+    q: 'How is cumulative GPA calculated?',
+    a: 'Cumulative GPA = (prior GPA × prior credits + this semester\'s quality points) / (prior credits + this semester\'s credits). Enter your prior GPA and credits to see it.',
+  },
+  {
+    q: 'What does "Apply Honors/AP weighting" do?',
+    a: 'On scales that support it, Honors courses add 0.5 to the grade point and AP/IB courses add 1.0 before averaging — mark each course\'s level with the dropdown. The bonus never applies to a failing grade.',
+  },
+  {
+    q: 'Which grading scale should I use?',
+    a: 'Use the exact scale your school publishes on its registrar or transcript page — see the /gpa-scale/ pages for 20 verified scales, including several named universities.',
+  },
+  {
+    q: 'Are Pass/Fail or Incomplete grades counted?',
+    a: 'No — any grade that has no point value on the selected scale (like P for Pass) is excluded from both the GPA and the credit count, matching how transcripts report it.',
+  },
+];
+---
+
+<Base
+  title={title}
+  description={description}
+  jsonLd={[
+    webAppLd({ name: 'GPA Calculator', url: '/gpa-calculator/', description, features: ['Semester GPA', 'Cumulative GPA', '20 grading scales', 'Honors/AP weighting', 'Save semesters locally'] }),
+    breadcrumbLd([{ name: 'Home', url: '/' }, { name: 'GPA Calculator', url: '/gpa-calculator/' }]),
+    howToLd({
+      name: 'How to calculate your semester and cumulative GPA',
+      description: 'Turn a list of courses and grades into a semester and cumulative GPA.',
+      steps: [
+        { name: 'Pick your grading scale', text: "Choose the scale your school actually uses — see the GPA scale pages if you're not sure." },
+        { name: 'Add your courses', text: 'Add each course with its letter grade and credit hours.' },
+        { name: 'Add prior GPA (optional)', text: 'Enter your prior cumulative GPA and credits to get a cumulative figure, not just this semester.' },
+        { name: 'Read your GPA', text: 'Semester and cumulative GPA update live as you edit.' },
+      ],
+    }),
+  ]}
+>
+  <article class="container container--narrow section">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'GPA Calculator', url: '/gpa-calculator/' }]} />
+    <h1>GPA Calculator</h1>
+    <p class="lead">
+      Add your courses and grades, pick your school's grading scale, and get your semester and cumulative GPA instantly — with Honors/AP weighting where it applies.
+    </p>
+    <p class="muted small">Last updated {BUILD_DATE_ISO}</p>
+  </article>
+
+  <section class="container" aria-label="GPA calculator">
+    <Gpa client:load />
+  </section>
+
+  <AdSlot slot="gpa-calculator-below-tool" minHeight={90} />
+
+  <article class="container container--narrow section prose">
+    <h2>Browse grading scales</h2>
+    <p>
+      Every scale above is documented with sources on its own page — see <a href={withBase('/gpa-scale/us-4-0/')}>the standard 4.0 scale</a>,
+      <a href={withBase('/gpa-scale/uk-classification/')}>UK degree classification</a>, <a href={withBase('/gpa-scale/india-cgpa/')}>India's CGPA-to-percentage conversion</a>,
+      or browse named universities like <a href={withBase('/gpa-scale/mit-5-0/')}>MIT</a> and <a href={withBase('/gpa-scale/harvard-fas-4-0/')}>Harvard</a>.
+    </p>
+    <p>
+      Want to know how many credits it takes to move your GPA? Try the <a href={withBase('/gpa-planner/')}>GPA planner</a>. Converting a single number instead of a whole
+      semester? See <a href={withBase('/gpa-to-percentage/')}>GPA to percentage</a>, <a href={withBase('/percentage-to-gpa/')}>percentage to GPA</a> or
+      <a href={withBase('/letter-grade-to-gpa/')}>letter grade to GPA</a>. New to the formula? Read <a href={withBase('/how-to-calculate-gpa/')}>how GPA is calculated</a>{' '}
+      or <a href={withBase('/weighted-vs-unweighted-gpa/')}>weighted vs. unweighted GPA</a>.
+    </p>
+    <Share url={absoluteUrl('/gpa-calculator/')} text="GPA Calculator — semester and cumulative GPA" />
+  </article>
+
+  <section class="container container--narrow">
+    <Faq items={faqs} />
+  </section>
+
+  <MoreTools />
+</Base>
+
+<style>
+  .lead {
+    font-size: var(--text-lg);
+    color: var(--fg-muted);
+  }
+</style>

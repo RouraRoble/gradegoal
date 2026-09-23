@@ -1,0 +1,128 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import Share from '../components/Share.astro';
+import AdSlot from '../components/AdSlot.astro';
+import MoreTools from '../components/MoreTools.astro';
+import FinalGrade from '../components/islands/FinalGrade';
+import { site } from '../site.config';
+import { webAppLd, howToLd, BUILD_DATE_ISO } from '../lib/seo';
+import { absoluteUrl, withBase } from '../lib/url';
+
+const faqs = [
+  {
+    q: 'How do I calculate what I need on my final exam?',
+    a: 'Enter your current grade in the class, the weight of the final as a percentage of your overall grade, and the grade you want to end up with. GradeGoal solves <code>final = (target − current × (1 − weight)) / weight</code> and shows the exact score you need, plus whether it is realistic.',
+  },
+  {
+    q: 'Is GradeGoal free and does it save my data anywhere?',
+    a: 'Yes — free, no account, no sign-up. Everything runs in your browser. Saved courses and semesters live only in your browser\'s local storage; nothing is uploaded to a server. See the <a href="' +
+      withBase('/privacy/') +
+      '">privacy policy</a>.',
+  },
+  {
+    q: 'What if the score I need is over 100%?',
+    a: 'That means the target is not reachable on this final alone — you would need extra credit or a different final grade. GradeGoal flags this as "Not possible" rather than showing a misleading number.',
+  },
+];
+---
+
+<Base
+  title={`${site.name} — ${site.tagline}`}
+  description={site.description}
+  jsonLd={[
+    webAppLd({ features: ['Final grade calculator', 'Weighted grade book', 'GPA calculator', 'GPA planner'] }),
+    howToLd({
+      name: 'How to calculate the grade you need on your final',
+      description: 'Three steps to find the exact score you need on your final exam.',
+      steps: [
+        { name: 'Enter your numbers', text: "Enter your current grade, how much the final is worth, and the grade you're aiming for." },
+        { name: 'Read the result', text: 'See the exact score you need on the final, colour- and label-coded for how realistic it is.' },
+        { name: 'Share it', text: 'Share the link — it encodes your numbers, so whoever opens it sees the same result.' },
+      ],
+    }),
+  ]}
+>
+  <section class="hero container">
+    <p class="eyebrow">Free · No sign-up · Runs in your browser · Last updated {BUILD_DATE_ISO}</p>
+    <h1>What do I need on my final?</h1>
+    <p class="lead">
+      Type your current grade, the final's weight and your target — get the exact score you need, in plain English. Then check your weighted grade book, GPA and how many
+      credits it takes to raise it.
+    </p>
+  </section>
+
+  <section class="container" aria-label="Final grade calculator">
+    <FinalGrade client:load />
+    <p class="tool-link">
+      Need the grade book, GPA or planner instead? <a href={withBase('/grade-calculator/')}>Weighted grade calculator</a> ·
+      <a href={withBase('/gpa-calculator/')}>GPA calculator</a> · <a href={withBase('/gpa-planner/')}>GPA planner</a>
+    </p>
+  </section>
+
+  <AdSlot slot="home-below-tool" minHeight={90} />
+
+  <section class="container container--narrow section">
+    <h2>How it works</h2>
+    <ol>
+      <li>Enter your current grade, how much the final is worth, and the grade you're aiming for.</li>
+      <li>See the exact score you need on the final, colour- and label-coded for how realistic it is.</li>
+      <li>Share the link — it encodes your numbers, so whoever opens it sees the same result.</li>
+    </ol>
+    <Share url={absoluteUrl('/')} text={`${site.name}: ${site.tagline}`} />
+  </section>
+
+  <section class="container container--narrow section">
+    <h2>Three more tools for the rest of the term</h2>
+    <div class="grid">
+      <a class="card link-card" href={withBase('/grade-calculator/')}>
+        <h3>Weighted grade calculator</h3>
+        <p class="muted">Categories, weights, drop-lowest and a live running grade. Save as many courses as you want.</p>
+      </a>
+      <a class="card link-card" href={withBase('/gpa-calculator/')}>
+        <h3>GPA calculator</h3>
+        <p class="muted">Semester and cumulative GPA on 20 researched scales — US 4.0/4.3/5.0 and more, plus UK classification, India CGPA and ECTS as reference tables.</p>
+      </a>
+      <a class="card link-card" href={withBase('/gpa-planner/')}>
+        <h3>GPA planner</h3>
+        <p class="muted">"I'm at 3.1, I need 3.5 — how many credits at what average?" Get the exact number.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="container container--narrow">
+    <Faq items={faqs} />
+  </section>
+
+  <MoreTools />
+</Base>
+
+<style>
+  .hero {
+    padding-block: var(--space-12) var(--space-8);
+    max-width: var(--container-narrow);
+  }
+  .lead {
+    font-size: var(--text-lg);
+    color: var(--fg-muted);
+  }
+  .tool-link {
+    font-size: var(--text-sm);
+    color: var(--fg-muted);
+    margin-top: var(--space-4);
+  }
+  .link-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: border-color 120ms ease, transform 120ms ease;
+  }
+  .link-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .link-card h3 {
+    margin-top: 0;
+    color: var(--link);
+  }
+</style>

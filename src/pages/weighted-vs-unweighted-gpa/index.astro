@@ -1,0 +1,177 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Faq from '../../components/Faq.astro';
+import Share from '../../components/Share.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import MoreTools from '../../components/MoreTools.astro';
+import scalesData from '../../data/scales.json';
+import type { Scale } from '../../lib/grades';
+import { articleLd, breadcrumbLd, BUILD_DATE_ISO } from '../../lib/seo';
+import { absoluteUrl, withBase } from '../../lib/url';
+import { site } from '../../site.config';
+
+const scales = scalesData as unknown as Scale[];
+const scale5 = scales.find((s) => s.slug === 'us-5-0-weighted') as Scale;
+const scale6 = scales.find((s) => s.slug === 'us-6-0-weighted') as Scale;
+
+const title = 'Weighted vs. Unweighted GPA: What\'s the Difference?';
+const description =
+  'Unweighted GPA caps at 4.0. Weighted GPA adds a bonus for Honors/AP/IB courses (commonly +0.5 or +1.0), so it can go above 4.0 — see a worked example.';
+const path = '/weighted-vs-unweighted-gpa/';
+
+// Worked example, hand-verified against src/lib/grades.ts's semesterGpa()/weightedPoints():
+// unweighted = (4×4 + 3.3×3 + 3.7×3 + 3×2) / 12 = 43 / 12 = 3.583.
+// weighted (World History is an Honors class, +0.5): (4×4 + 3.3×3 + 4.2×3 + 3×2) / 12 = 44.5 / 12 = 3.708.
+const courses = [
+  { name: 'Biology', grade: 'A', level: 'Regular', unweighted: 4, weighted: 4, credits: 4 },
+  { name: 'Algebra II', grade: 'B+', level: 'Regular', unweighted: 3.3, weighted: 3.3, credits: 3 },
+  { name: 'World History', grade: 'A-', level: 'Honors', unweighted: 3.7, weighted: 3.7 + (scale5.weighted?.honors ?? 0.5), credits: 3 },
+  { name: 'Spanish II', grade: 'B', level: 'Regular', unweighted: 3, weighted: 3, credits: 2 },
+];
+const totalCredits = courses.reduce((a, c) => a + c.credits, 0);
+const totalUnweighted = courses.reduce((a, c) => a + c.unweighted * c.credits, 0);
+const totalWeighted = courses.reduce((a, c) => a + c.weighted * c.credits, 0);
+const gpaUnweighted = totalUnweighted / totalCredits;
+const gpaWeighted = totalWeighted / totalCredits;
+
+const faqs = [
+  {
+    q: 'Which one do colleges look at?',
+    a: 'Both, usually — most US college applications show your unweighted GPA (capped at 4.0) alongside your weighted GPA and a look at how many Honors/AP/IB classes you took, since weighting conventions vary by high school.',
+  },
+  {
+    q: 'Is there a national standard for the weighting bonus?',
+    a: 'No. The most common convention adds +0.5 for Honors and +1.0 for AP/IB/Dual-Enrollment (max 5.0), but some districts use +1.0/+2.0 (max 6.0) or don\'t weight at all. Always confirm your own school\'s policy — see the <a href="' +
+      withBase('/gpa-scale/us-5-0-weighted/') +
+      '">weighted 5.0 scale</a> and <a href="' +
+      withBase('/gpa-scale/us-6-0-weighted/') +
+      '">weighted 6.0 scale</a> pages for both conventions.',
+  },
+  {
+    q: 'Can a weighted GPA go above 4.0?',
+    a: 'Yes — that\'s the whole point of weighting. An A in an AP class can be worth 5.0 instead of 4.0 (on the +1.0 convention), which is why a straight-A student who takes several AP classes can end up with a weighted GPA above 4.0.',
+  },
+  {
+    q: 'Can I calculate mine?',
+    a: 'Yes — the <a href="' +
+      withBase('/gpa-calculator/') +
+      '">GPA calculator</a> has an "Apply Honors/AP weighting" toggle: mark each course\'s level and it computes both figures for you.',
+  },
+];
+---
+
+<Base
+  title={title}
+  description={description}
+  jsonLd={[
+    articleLd({ headline: title, description, url: path, datePublished: site.launched }),
+    breadcrumbLd([{ name: 'Home', url: '/' }, { name: 'GPA Calculator', url: '/gpa-calculator/' }, { name: 'Weighted vs. Unweighted GPA', url: path }]),
+  ]}
+>
+  <article class="container container--narrow section prose">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'GPA Calculator', url: '/gpa-calculator/' }, { name: 'Weighted vs. Unweighted GPA', url: path }]} />
+    <h1>Weighted vs. Unweighted GPA</h1>
+    <p class="lead">
+      An <strong>unweighted GPA</strong> caps every class at 4.0 for an A, no matter how hard the course was. A <strong>weighted GPA</strong> adds a bonus for
+      Honors, AP, IB or Dual-Enrollment classes — commonly +0.5 or +1.0 — so it can rise above 4.0.
+    </p>
+    <p class="muted small">Last updated {BUILD_DATE_ISO}</p>
+
+    <h2>Same courses, two different numbers</h2>
+    <p>
+      Here's the same four-course semester scored both ways. The only difference: World History is an Honors class, so it gets a weighting bonus in the second
+      column but not the first.
+    </p>
+  </article>
+
+  <section class="container section" aria-label="Weighted vs unweighted GPA comparison table">
+    <div class="table-wrap container--narrow">
+      <table class="matrix">
+        <caption class="visually-hidden">Weighted vs. unweighted GPA comparison for a four-course semester</caption>
+        <thead>
+          <tr>
+            <th scope="col">Course</th>
+            <th scope="col">Grade</th>
+            <th scope="col">Level</th>
+            <th scope="col">Credits</th>
+            <th scope="col">Unweighted points</th>
+            <th scope="col">Weighted points</th>
+          </tr>
+        </thead>
+        <tbody>
+          {courses.map((c) => (
+            <tr>
+              <th scope="row">{c.name}</th>
+              <td>{c.grade}</td>
+              <td>{c.level}</td>
+              <td>{c.credits}</td>
+              <td>{c.unweighted}</td>
+              <td>{c.weighted}{c.weighted !== c.unweighted ? ' *' : ''}</td>
+            </tr>
+          ))}
+          <tr>
+            <th scope="row">GPA</th>
+            <td>—</td>
+            <td>—</td>
+            <td>{totalCredits}</td>
+            <td><strong>{gpaUnweighted.toFixed(3)}</strong></td>
+            <td><strong>{gpaWeighted.toFixed(3)}</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="container container--narrow field__hint">* World History (A-, Honors) is worth 3.7 unweighted but 3.7 + {(scale5.weighted?.honors ?? 0.5).toFixed(1)} = {(3.7 + (scale5.weighted?.honors ?? 0.5)).toFixed(1)} weighted, on the common +0.5 Honors / +1.0 AP convention.</p>
+  </section>
+
+  <AdSlot slot="weighted-vs-unweighted-below-table" minHeight={90} />
+
+  <article class="container container--narrow section prose">
+    <h2>Common weighting conventions</h2>
+    <p>There's no single national standard. The two most common US high-school conventions:</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Convention</th>
+            <th scope="col">Honors bonus</th>
+            <th scope="col">AP/IB bonus</th>
+            <th scope="col">Max GPA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row"><a href={withBase('/gpa-scale/us-5-0-weighted/')}>Weighted 5.0</a></th>
+            <td>+{scale5.weighted?.honors}</td>
+            <td>+{scale5.weighted?.ap}</td>
+            <td>{scale5.max.toFixed(1)}</td>
+          </tr>
+          <tr>
+            <th scope="row"><a href={withBase('/gpa-scale/us-6-0-weighted/')}>Weighted 6.0</a></th>
+            <td>+{scale6.weighted?.honors}</td>
+            <td>+{scale6.weighted?.ap}</td>
+            <td>{scale6.max.toFixed(1)}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Not sure which your school uses? Check your registrar's published scale or your syllabus — see <a href={withBase('/gpa-scale/us-4-0/')}>the unweighted 4.0 scale</a>{' '}
+      for the base points before any bonus, or read <a href={withBase('/how-to-calculate-gpa/')}>how GPA is calculated</a> from scratch.
+    </p>
+    <Share url={absoluteUrl(path)} text="Weighted vs. unweighted GPA — the difference, with a worked example" />
+  </article>
+
+  <section class="container container--narrow">
+    <Faq items={faqs} />
+  </section>
+
+  <MoreTools />
+</Base>
+
+<style>
+  .lead {
+    font-size: var(--text-lg);
+    color: var(--fg-muted);
+  }
+</style>

@@ -1,0 +1,107 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Faq from '../../components/Faq.astro';
+import Share from '../../components/Share.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import MoreTools from '../../components/MoreTools.astro';
+import FinalGrade from '../../components/islands/FinalGrade';
+import { site } from '../../site.config';
+import { webAppLd, breadcrumbLd, howToLd, BUILD_DATE_ISO } from '../../lib/seo';
+import { absoluteUrl, withBase } from '../../lib/url';
+
+const title = 'Final Grade Calculator — What Do I Need on My Final?';
+const description =
+  'Free final grade calculator. Enter your current grade, the final\'s weight and your target grade to see the exact score you need on the final.';
+const faqs = [
+  {
+    q: 'What is the formula for the final grade calculator?',
+    a: 'final = (target − current × (1 − weight)) / weight, where weight is the final\'s share of your course grade as a decimal (30% = 0.30). For example: current 88%, weight 30%, target 90% → you need 94.67% on the final.',
+  },
+  {
+    q: 'What does "already secured" mean?',
+    a: 'It means the needed score is 0 or negative — your grade is already at or above the target even with a 0 on the final.',
+  },
+  {
+    q: 'What if my final replaces my lowest test grade?',
+    a: 'Use the "Final replaces lowest test" tab above: enter your test scores, and the calculator works out the score you need on the final so that, after your lowest score is dropped, your average hits the target.',
+  },
+  {
+    q: 'Can I use this if the final is split into two exams?',
+    a: 'Yes — the "Two-part final" tab handles a final split across two weighted parts (e.g. 15% + 15%), and lets you enter part 1\'s score once you have it.',
+  },
+];
+---
+
+<Base
+  title={title}
+  description={description}
+  jsonLd={[
+    webAppLd({ name: 'Final Grade Calculator', url: '/final-grade-calculator/', description, features: ['Standard final grade', 'Final replaces lowest test', 'Two-part final', 'Points-based grading'] }),
+    breadcrumbLd([{ name: 'Home', url: '/' }, { name: 'Final Grade Calculator', url: '/final-grade-calculator/' }]),
+    howToLd({
+      name: 'How to calculate the score you need on your final',
+      description: 'Solve for the exact final-exam score needed to hit a target course grade.',
+      steps: [
+        { name: 'Enter your current grade', text: 'The percentage you have in the course before the final.' },
+        { name: "Enter the final's weight", text: "How much the final counts toward your course grade, as a percentage." },
+        { name: 'Enter your target grade', text: 'The overall grade you want to end up with.' },
+        { name: 'Read the needed score', text: 'GradeGoal solves final = (target − current × (1 − weight)) / weight and shows it in plain English.' },
+      ],
+    }),
+  ]}
+>
+  <article class="container container--narrow section">
+    <Breadcrumbs items={[{ name: 'Home', url: '/' }, { name: 'Final Grade Calculator', url: '/final-grade-calculator/' }]} />
+    <h1>Final Grade Calculator</h1>
+    <p class="lead">
+      Enter your current grade, how much the final is worth, and the grade you want — GradeGoal instantly tells you the exact score you need on the final, in plain
+      English, with a full table for every letter grade.
+    </p>
+    <p class="muted small">Last updated {BUILD_DATE_ISO}</p>
+  </article>
+
+  <section class="container" aria-label="Final grade calculator">
+    <FinalGrade client:load />
+  </section>
+
+  <AdSlot slot="final-grade-below-tool" minHeight={90} />
+
+  <article class="container container--narrow section prose">
+    <h2>How the calculation works</h2>
+    <p>
+      Your course grade is a weighted average of everything already graded (<code>current</code>) and the final (<code>weight</code>, as a share of the total). Solving
+      for the final score that produces your <code>target</code> overall grade gives:
+    </p>
+    <pre tabindex="0">final = (target − current × (1 − weight)) / weight</pre>
+    <p>
+      Example: current grade 88%, final worth 30% of the course, target 90% overall → <code>(90 − 88 × 0.7) / 0.3 = 94.67%</code>. If that number is above 100%, the target
+      isn't reachable on this final alone; if it's 0% or below, you've already secured it.
+    </p>
+    <h2>Three variants for how finals actually work</h2>
+    <ul>
+      <li><strong>Standard</strong> — the final is one more weighted piece of the grade.</li>
+      <li><strong>Final replaces your lowest test</strong> — common when a syllabus says "the final can replace your lowest test score."</li>
+      <li><strong>Two-part final</strong> — when the final itself is split into two weighted exams.</li>
+      <li><strong>Points-based</strong> — for courses graded on raw points earned out of points possible, rather than percentages.</li>
+    </ul>
+    <p>
+      Want the running grade across the whole semester instead of just the final? Try the <a href={withBase('/grade-calculator/')}>weighted grade calculator</a>, or work
+      out your <a href={withBase('/gpa-calculator/')}>GPA</a> once the semester is over.
+    </p>
+    <Share url={absoluteUrl('/final-grade-calculator/')} text="Final Grade Calculator — what do I need on my final?" />
+  </article>
+
+  <section class="container container--narrow">
+    <Faq items={faqs} />
+  </section>
+
+  <MoreTools />
+</Base>
+
+<style>
+  .lead {
+    font-size: var(--text-lg);
+    color: var(--fg-muted);
+  }
+</style>
